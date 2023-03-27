@@ -1,4 +1,5 @@
 from ..app import app, db
+import uuid
 
 # #table de relation configuration(forme) et play (la piece)
 play_configuration = db.Table(
@@ -28,6 +29,7 @@ class Play(db.Model):
     #db.Text = pas de nombres de caracteres predefinis // db.String on definit la longueur de la chaine de caracteres
     id_play = db.Column(db.Text, primary_key=True)
     title = db.Column(db.Text, nullable=False)
+    date = db.Column(db.Integer)
     is_published = db.Column(db.Integer)
     digitized = db.Column(db.Text)
     authoress = db.Column(db.Text, db.ForeignKey('authoress.id'))
@@ -63,37 +65,20 @@ class Configuration(db.Model):
     __tablename__ = "configuration"
     id_configuration = db.Column(db.Text, primary_key=True)
 
-# class Play_configuration(db.Model):
-#     __tablename__="play_configuration"
-#     id_configuration = db.Column(db.Text, db.ForeignKey('configuration.id_configuration'))
-#     id_play = db.Column(db.Text, db.ForeignKey('play.id_play'))
 
 class Theater(db.Model):
     __tablename__ = "theater"
     id_theater = db.Column(db.Text, primary_key=True)
 
-# class Play_theater(db.Model):
-#     __tablename__="play_theater"
-#     id_theater = db.Column(db.Text, db.ForeignKey('theater.id_theater'))
-#     id_play = db.Column(db.Text, db.ForeignKey('play.id_play'))
 
 class Type(db.Model):
     __tablename__ = "type"
     id_type = db.Column(db.Text, primary_key=True)
 
-# class Play_type(db.Model):
-#     __tablename__="play_type"
-#     id_type= db.Column(db.Text, db.ForeignKey('type.id_type'))
-#     id_play = db.Column(db.Text, db.ForeignKey('play.id_play'))
-
 # Table pour les autrices
 class Authoress(db.Model):
     __tablename__ = "authoress"
     id = db.Column(db.Text, primary_key=True)
-    wikidata = db.Column(db.Text)
-    wikipedia = db.Column(db.Text)
-    bnf = db.Column(db.Text)
-
-#propriete de relation est un objet python qui permet de faire la relation
-    
-
+    wikidata = db.Column(db.Text, nullable=True)
+    wikipedia = db.Column(db.Text, nullable=True)
+    bnf = db.Column(db.Text, nullable=True)

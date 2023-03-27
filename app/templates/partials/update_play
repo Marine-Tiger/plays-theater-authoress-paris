@@ -1,0 +1,71 @@
+<form action="{{url_for('update_play')}}" method="post" name="update_autrice">
+    {{ form.hidden_tag() }}
+
+ <div class="form-group">
+        <label for="titre_piece">Titre de la pièce</label>
+        {{ form.title_play(class_="form-control", placeholder_="pièce") }}
+        <small id="titre_piece" class="form-text text-muted">Entrer le titre de la pièce</small>
+    </div>
+
+    <div class="form-group">
+        <label for="new_titre_piece">Titre de la pièce</label>
+        {{ form.new_title_play(class_="form-control", placeholder_="pièce") }}
+        <small id="new_titre_piece" class="form-text text-muted">Entrer le nouveau titre de la pièce</small>
+    </div>
+
+    <div class="form-group">
+        <label for="url_AN">Cote des AN</label>
+        {{ form.url_AN(class_="form-control", placeholder_="Code") }}
+        <small id="url_AN" class="form-text text-muted">Entrer la cote des AN</small>
+    </div>
+
+    <div class="form-group">
+        <label for="new_url_AN">Cote des AN</label>
+        {{ form.new_url_AN(class_="form-control", placeholder_="Code") }}
+        <small id="new_url_AN" class="form-text text-muted">Entrer nouvelle cote</small>
+    </div>
+
+    <div class="form-group">
+        <label for="date">date</label>
+        {{ form.date(class_="form-control", placeholder_="Code") }}
+        <small id="date" class="form-text text-muted">Entrer la date</small>
+    </div>
+
+    <div class="form-group">
+        <label for="new_date">Cote des AN</label>
+        {{ form.new_date(class_="form-control", placeholder_="Code") }}
+        <small id="new_date" class="form-text text-muted">Entrer nouvelle date</small>
+    </div>
+
+    <div class="form-group">
+        <label for="is_published">Publication</label>
+        {{ form.is_published(class_="form-control", placeholder_="Code") }}
+    </div>
+
+    <div class="form-group">
+        <label for="new_is_published">Publiée ou non</label>
+        {{ form.new_is_published(class_="form-control", placeholder_="Code") }}
+    </div>
+
+    <div class="form-group">
+        <label for="digitized">Numerisation</label>
+        {{ form.digitized(class_="form-control", placeholder_="Code") }}
+    </div>
+
+    <div class="form-group">
+        <label for="new_digitized">Numerisee ou non</label>
+        {{ form.new_digitized(class_="form-control", placeholder_="Code") }}
+    </div>
+
+    <div class="form-group">
+        <label for="other_author">Autres auteurs</label>
+        {{ form.other_author(class_="form-control", placeholder_="Code") }}
+    </div>
+
+    <div class="form-group">
+        <label for="new_other_author">Nouveaux autres auteurs</label>
+        {{ form.other_author(class_="form-control", placeholder_="Code") }}
+    </div>
+
+    <p><input type="submit" value="Insérer"></p>
+</form>

@@ -1,0 +1,29 @@
+<form action="{{url_for('insertion_piece')}}" method="post" name="insertion_piece">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        <label for="titre_piece">Titre de la pièce</label>
+        {{ form.title(class_="form-control", placeholder_="pièce") }}
+        <small id="titre_piece" class="form-text text-muted">Entrer le titre de la pièce</small>
+    </div>
+
+    <div class="form-group">
+        <label for="url_AN">Cote des AN</label>
+        {{ form.url_AN(class_="form-control", placeholder_="Code") }}
+        <small id="url_AN" class="form-text text-muted">Entrer la cote des AN</small>
+    </div>
+
+    <div class="form-group">
+        <label for="name_authoress">Nom de l'autrice</label>
+        {{ form.name_authoress(class_="form-control") }}
+        <small id="type" class="form-text text-muted">NOM, prénom</small>
+    </div>
+
+    <div class="form-group">
+        <label for="name_theater">Théâtre</label>
+        {{ form.name_theater(class_="form-control") }}
+        <small id="introduction" class="form-text text-muted">Nom du théâtre</small>
+    </div>
+
+    <p><input type="submit" value="Insérer"></p>
+</form>
