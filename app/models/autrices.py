@@ -1,5 +1,4 @@
 from ..app import app, db
-import uuid
 
 # #table de relation configuration(forme) et play (la piece)
 play_configuration = db.Table(
@@ -34,6 +33,7 @@ class Play(db.Model):
     digitized = db.Column(db.Text)
     authoress = db.Column(db.Text, db.ForeignKey('authoress.id'))
     other_author = db.Column(db.Text)
+    url_AN = db.Column(db.Text)
 
     Authoress = db.relationship(
         'Authoress',

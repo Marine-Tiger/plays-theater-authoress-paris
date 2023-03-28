@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Application Python</title>
+      <meta name="description" content="Pièces de théâtre écrites par des femmes, et représentées à Paris entre 1809 et 1906">
+      <meta name="author" content="Camille Ferrari et Marine Tiger">
+      <link rel="icon" type="image/x-icon" href="favicon.ico">
+      {% include "partials/css.html" %}
+   </head>
+   <body>
+      <header> <img src="https://vl-media.fr/wp-content/uploads/2014/07/comedie-francaise.png" alt="Théâtre de la Comédie-Francaise, Paris" class="img"><nav><a href="./Pieces_de_theatre_écrites_par_autrices.html"> Page d'accueil </a><a href="./Liste_pieces_de_theatre.html"> Liste des pièces de théâtre</a><a href="./Configurations_pieces.html">Configurations des pièces représentées</a><a href="./Carte_des_theatres_Paris.html"> Carte des théâtres de Paris au 19ème siècle </a></nav>
+      </header>
+      <!-- <main>
+         <div class="up">
+            <h1>Liste des pièces de théâtre</h1>
+         </div>
+         <div class="listpieces">
+            <p>Liste des pièces de théâtre lorem ipsum
+            si a été publié, condition</p>
+         </div>
+      </main> -->
+      {% block body%}{%endblock%}
+      <footer>
+         <p>Application réalisée dans le cadre du master 2 TNAH </p>
+      </footer>
+   </body>
+</html>
