@@ -1,0 +1,15 @@
+{% extends "partials/conteneur.html" %}
+
+{%block body%}
+
+<h2>Liste des autrices</h2>
+
+<div class="liste_autrices">
+    <ul>
+        {%for elm in name:%}
+        <li>{{elm.authoress}}</li>
+        {%endfor%}
+    </ul>
+</div>
+
+{%endblock%}

@@ -1,0 +1,15 @@
+{% extends "partials/conteneur.html" %}
+
+{%block body%}
+
+<h2>Liste des théâtres</h2>
+
+<div class="liste_theatre">
+    <ul>
+        {%for elm in theater:%}
+        <li><a>{{elm.name}}</a></li>
+        {%endfor%}
+    </ul>
+</div>
+
+{%endblock%}

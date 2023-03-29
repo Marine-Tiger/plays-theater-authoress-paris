@@ -12,8 +12,9 @@ from ..utils.transformations import  clean_arg
 def home():
     name = []
     for name_authoress in Authoress.query.order_by(Authoress.id).all():
-        name.append(name_authoress.id)
-    return name
+        name.append({'authoress': name_authoress.id})
+    return render_template ('pages/home.html',
+                            name=name)
 
 # PAGE DE PRESENTATION DES AUTRICES
 @app.route("/presentation_autrice/<string:name>")
@@ -47,23 +48,30 @@ def presentation(name):
         # une variable piece qui vaut la position une dans la tuple
         piece=elm[1]
         # a chaque tour, on ajoute a la liste les differents elements de la table Play
-        id_authoress['piece'].append({'cote_AN':piece.id_play, 
+        id_authoress['piece'].append({'cote_AN':piece.url_AN, 
                                       'titre':piece.title, 
                                       'date': piece.date, 
                                       'autre auteur': piece.other_author, 
                                       'lien numerisation':piece.digitized,
                                       'publié': piece.is_published == 1})
-    print(id_authoress)
-    return id_authoress
+    
+    return render_template ('pages/presentation_autrice.html',
+                            id_authoress=id_authoress,
+                            name=name)
 
 
 # PAGE DES PIECES DE THEATRE
 @app.route("/liste_pieces")
 def liste_piece():
     piece = []
-    for titre_piece in Play.query.order_by(Play.title).all():
-        piece.append((titre_piece.title, titre_piece.id_play))
-    return piece
+    for titre_piece in Play.query.order_by(Play.title):
+        piece.append({'title':titre_piece.title} )
+    
+    return render_template ('pages/liste_pieces.html',
+                            piece=piece)
+
+# .paginate(page=page, per_page=app.config["PLAY_PER_PAGE"])
+
 # PAGE POUR CHAQUE PIECE
 @app.route("/liste_pieces/<string:titre>")
 def presentation_piece(titre):
@@ -84,23 +92,31 @@ def presentation_piece(titre):
                             piece = data[0],
                             titre = titre)
 
-    # print(data[0].theater.id_theater)
-    # return {
-    #     'play_number': len(data),
-    #     'theater': data[0].theater[0].id_theater,
-    #     'configuration': data[0].configuration[0].id_configuration,
-    #     'type': data[0].type[0].id_type
-    # }
-    # piece=data[0][0]
-    # print(piece)
-    # id_piece['play']={
-    #     'title': piece.title,
-    #     'url_AN': piece.id_play,
-    #     'date': piece.date,
-    # }
 
-    
+# PAGE POUR LES THEATRES
+@app.route("/liste_theatre")
+def liste_theatre():
+    theater=[]
+    for name_theater in Theater.query.order_by(Theater.id_theater).all():
+        theater.append({'name':name_theater.id_theater})
+        print(theater)
+    return render_template ('pages/liste_theatre.html',
+                            theater=theater)
 
+@app.route("/liste_theatre/<string:theatre>")
+def theatre_piece(theatre):
+    data= db.session.query(Theater, Play)\
+    .join(Play.theater)\
+    .filter(Theater.id_theater == theatre).all()
+
+    pieces=[0][0]
+    print(pieces)
+    theatre={}
+    theatre['theatre']= pieces.title
+
+    return render_template('pages/liste_theatre_pieces.html',
+                        liste = data,
+                        theatre = theatre)
 
 
     

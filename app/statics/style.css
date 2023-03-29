@@ -6,7 +6,7 @@ header {
     background-color: #CCD5AE;
 }
 
-.img{
+.img {
     margin: auto;
     height: 100px;
     width: 125px;
@@ -15,7 +15,7 @@ header {
 nav {
     float: right;
     width: 35%;
-    margin : 2%;
+    margin: 2%;
     font-family: serif;
     font-weight: bold;
     color: #5E548E;
@@ -23,69 +23,140 @@ nav {
 
 
 .up {
-    text-align:center;
+    text-align: center;
 }
 
 /* Arrière-plan du corps du site */
 body {
     background-color: #FAEDCD;
+    height: 100%;
 }
 
 /* Style des titres */
 h1 {
     color: #D4A373;
-    font-family:Georgia, sans-serif;
+    font-family: Georgia, sans-serif;
     font-size: 300%;
 }
 
 h2 {
     color: #A3B18A;
-    font-family:Georgia, sans-serif;
+    font-family: Georgia, sans-serif;
     font-size: 225%;
 }
 
 h3 {
     border-radius: 0px;
     color: #B5838D;
-    font-family:Georgia, sans-serif;
+    font-family: Georgia, sans-serif;
     font-size: 17px;
     margin-left: 3%;
     margin-right: 0%;
 }
 
 /* Style du texte de la page d'accueil */
-.home{
-  font-family:Georgia, sans-serif;
- color: #5E548E;
+.home {
+    font-family: Georgia, sans-serif;
+    color: #5E548E;
 }
 
 /* Style de la page listant les pièces de théâtre, pour le texte et la bordure */
-.listpieces {
-  color: #5E548E;
-  font-family:Georgia, sans-serif;
-   text-align: justify;
-   padding: 2%;
-   border: 2px solid #B5838D;
-   border-radius: 5px;
-   width: 95%;
+.liste_pieces {
+    display: flex;
+    color: #5E548E;
+    font-family: Georgia, sans-serif;
+    text-align: justify;
+    /* justify-content: center; */
+    padding: 2%;
+    border: 2px solid #B5838D;
+    border-radius: 5px;
+    width: 95%;
+
+}
+
+.liste_autrices{
+    display: flex;
+    color: #5E548E;
+    font-family: Georgia, sans-serif;
+    text-align: justify;
+    /* justify-content: center; */
+    padding: 2%;
+    border: 2px solid #B5838D;
+    border-radius: 5px;
+    width: 95%;
+}
+
+a {
+    text-decoration: none;
+    color: #5E548E;
+}
+
+a:hover {
+    color: grey;
 }
 
 /* Style des pages présentant la configuration des pièces et la carte */
-.index{
-  color: #5E548E;
- font-family:Georgia, sans-serif;
- border: 2px solid #B5838D;
- border-radius: 0px;
-  margin: 35px;
-  margin-left: 20px;
-  margin-right: 750px;
+.index {
+    color: #5E548E;
+    font-family: Georgia, sans-serif;
+    border: 2px solid #B5838D;
+    border-radius: 0px;
+    margin: 35px;
+    margin-left: 20px;
+    margin-right: 750px;
 }
+
+#form{
+    display: flex;
+    justify-content: center;
+}
+form {
+    /*les marges intérieures sont de 50px sur l'axe y et 37.5% sur l'axe x*/
+    padding: 10px 30.5%;
+    color: #5E548E;
+    font-family: Georgia, sans-serif;
+
+}
+
+label{
+    font-weight: bold;
+}
+
+input{
+    width: 100%;
+    padding: 8px 16px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+form>* {
+    margin-top: 10px;
+}
+
+.button_insertion > input{
+    width: 40%;
+    background-color:#5E548E;
+    color: white;
+    border: none;
+    height: 35px;
+    font-size: 15px;
+    font-family: Georgia, sans-serif;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.button_insertion > input:hover {
+    color: #5E548E;
+    background-color: lightgray;
+    border: 2px solid #5E548E;
+}
+
 
 /* Style pour le footer */
 footer {
-  background-color: #CCD5AE;
+    background-color: #CCD5AE;
     color: #5E548E;
-    font-family:Georgia, sans-serif;
+    font-family: Georgia, sans-serif;
     font-weight: bold;
     font-style: italic;
     padding: 2%;

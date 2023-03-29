@@ -9,3 +9,4 @@ class Config():
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     WTF_CSRF_ENABLE=os.environ.get("WTF_CSRF_ENABLE")
     SECRET_KEY=os.environ.get("SECRET_KEY")
+    PLAY_PER_PAGE = os.environ.get("PLAY_PER_PAGE")

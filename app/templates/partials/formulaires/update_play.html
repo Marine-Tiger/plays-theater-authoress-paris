@@ -1,0 +1,43 @@
+<!-- id_play est variable dans la route donc il faut specifier a url_for la variable 
+     pour qu'il puisse generer une url valide.
+    /update/play/<id_play> -->
+
+{% extends "partials/conteneur.html" %}
+{%block body%}
+<h3 id="form">Modification de la table des pièces de théâtre</h3>
+<form action="{{url_for('update_play', id_play=id_play)}}" method="post" name="id_play">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        <label for="new_titre_piece">Nouveau titre de la pièce</label>
+        {{ form.new_title_play(class_="form-control", placeholder_="Entrer le nom de la pièce") }}
+    </div>
+
+    <div class="form-group">
+        <label for="new_url_AN">URL vers les Archives Nationales</label>
+        {{ form.new_url_AN(class_="form-control", placeholder_="Entrer l'url vers les Archives Nationales") }}
+    </div>
+
+    <div class="form-group">
+        <label for="new_date">Date de production</label>
+        {{ form.new_date(class_="form-control", placeholder_="yyyy-MM-dd")}}
+    </div>
+
+    <div class="form-group">
+        <label for="new_is_published">Publication</label>
+        {{ form.new_is_published(class_="form-control", placeholder_="0 non publiée ou 1 publiée") }}
+    </div>
+
+    <div class="form-group">
+        <label for="new_digitized">Numérisation</label>
+        {{ form.new_digitized(class_="form-control", placeholder_="Entrer le lien vers la pièce numérisée") }}
+    </div>
+
+    <div class="form-group">
+        <label for="new_other_author">Ajouter des auteurs.rices</label>
+        {{ form.new_other_author(class_="form-control", placeholder_="Entre Nom, prénom") }}
+    </div>
+
+    <div class="button_insertion"><input type="submit" value="Modifier"></div>
+</form>
+{%endblock%}

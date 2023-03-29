@@ -1,19 +1,23 @@
+{% extends "partials/conteneur.html" %}
+{%block body%}
+
+<h3 id="form">Modification de la table autrice</h3>
+
 <form action="{{url_for('update_authoress_name')}}" method="post" name="update_autrice">
     {{ form.hidden_tag() }}
 
     <div class="form-group">
         <label for="name_authoress">Nom de l'autrice</label>
-        {{ form.name_authoress(class_="form-control", placeholder_="nom") }}
-        <small id="name_authoress" class="form-text text-muted">Entrer le nom</small>
+        {{ form.name_authoress(class_="form-control", placeholder_="Entrer le NOM, prénom") }}
     </div>
 
     <div class="form-group">
         <label for="new_name_authoress">Nouveau nom</label>
-        {{ form.new_name_authoress(class_="form-control", placeholder_="nom") }}
-        <small id="new_name_authoress" class="form-text text-muted">Entrer le nouveau nom</small>
+        {{ form.new_name_authoress(class_="form-control", placeholder_="Entrer le NOM, prénom") }}
     </div>
 
 
     <p><input type="submit" value="Insérer"></p>
 </form>
+{%endblock%}
 

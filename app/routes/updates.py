@@ -15,17 +15,19 @@ def update_authoress_name():
         name_authoress =  clean_arg(request.form.get("name_authoress", None))
         new_name_authoress =  clean_arg(request.form.get("new_name_authoress", None))
 
-        authoress_in_db = Authoress.query.filter(Authoress.id == name_authoress).all()
-        if authoress_in_db is not None:
-            Authoress.query.filter(Authoress.id == name_authoress).update({"id": new_name_authoress})
+        update = {}
+        if name_authoress:
+            authoress_in_db = Authoress.query.filter(Authoress.id == name_authoress).all()
+            if authoress_in_db is not None:
+                Authoress.query.filter(Authoress.id == name_authoress).update({"id": new_name_authoress})
 
+                db.session.commit()
+                print('Ca fonctionne')
+            else:
+                print('Cette autrice existe déjà.')
             db.session.commit()
-            print('Ca fonctionne')
-        else:
-            print('Cette autrice existe déjà.')
-        db.session.commit()
     
-    return render_template("partials/update_autrice.html", 
+    return render_template("partials/formulaires/update_autrice.html", 
             sous_titre= "Update autrices" , 
             form=form)
 
@@ -68,7 +70,7 @@ def update_play(id_play):
         db.session.commit()
   
 
-    return render_template("partials/update_play.html", 
+    return render_template("partials/formulaires/update_play.html", 
             sous_titre= "Update piece" , 
             id_play=id_play,
             form=form)

@@ -1,0 +1,34 @@
+{% extends "partials/conteneur.html" %}
+{%block body%}
+
+    <h3 id="form">Insérer une nouvelle autrice dans la base de données</h3>
+    <form action="{{url_for('insertion_autrice')}}" method="post" name="insertion_autrice">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            <label for="name">Nom de l'autrice</label>
+            {{ form.name(class_="form-control", placeholder_="NOM, prénom") }}
+        </div>
+
+        <div class="form-group">
+            <label for="lien_wikipedia">Lien wikipedia</label>
+            {{ form.lien_wikipedia(class_="form-control", placeholder_="Entrer le lien wikipedia") }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_wikidata">Identifiant wikidata</label>
+            {{ form.id_wikidata(class_="form-control", placeholder_="Entrer l'identifiant wikidata") }}
+        </div>
+
+
+        <div class="form-group">
+            <label for="lien_bnf">Notice d'autorité de la BnF</label>
+            {{ form.lien_bnf(class_="form-control", placeholder_="Entrer le lien vers la notice BnF")}}
+        </div>
+
+        <div class="button_insertion"><input type="submit" value="Insérer"></div>
+    </form>
+
+   
+
+{%endblock%}

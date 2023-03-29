@@ -30,7 +30,6 @@ def insertion_piece():
                 # s'il n'existe pas, on peut creer la nouvelle autrice
                 if not authoress_in_db:
                     print(authoress_in_db)
-                    print("------------------------------")
                     new_authoress = Authoress(id=name_authoress)
                     db.session.add(new_authoress)
                     db.session.commit()
@@ -61,7 +60,7 @@ def insertion_piece():
                 else:
                     print('Cette pièce existe déjà.')
 
-    return render_template("partials/insertion_piece.html", 
+    return render_template("partials/formulaires/insertion_piece.html", 
             sous_titre= "Insertion piece" , 
             form=form)
 
@@ -85,6 +84,6 @@ def insertion_autrice():
         else:
             print("Cette autrice existe déjà.")
 
-    return render_template("partials/insertion_autrice.html", 
+    return render_template("partials/formulaires/insertions.html", 
             sous_titre= "Insertion autrice" , 
             form=form)

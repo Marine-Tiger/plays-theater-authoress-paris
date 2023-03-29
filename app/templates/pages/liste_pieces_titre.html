@@ -2,20 +2,35 @@
 
 {%block body%}
 <!-- on retrouve ici la variable piece declaree dans la route liste_pieces/titre de generales.py -->
-    <h3>{{piece.title}}</h3>
-    <ul class="infos_piece">
-        
-        <li>Lien vers les Archives Nationales: {{piece.url_AN}}</li>
-        <li>Date de production: {{piece.date}}</li>
-        <li>Genre(s): {{piece.type}}</li>
-        {%for theater in piece.theater%}
-        <li>Lieu: {{theater.id_theater}}</li>
-        {%endfor%}
-        
-        <li>Forme de la piece: 
-            {{piece.configuration[0].id_configuration}}
-            </li>
-    </ul>
+<h3>{{piece.title}}</h3>
+<ul class="infos_piece">
+
+    <li>Lien vers les Archives Nationales: {{piece.url_AN}}</li>
+    <li>Autrice: {{piece.authoress}}</li>
+    <li>Autre(s) auteur.rice(s): {{piece.other_author}}</li>
+    <li>Date de production: {{piece.date}}</li>
+    {%for genre in piece.type%}
+    <li>Genre(s): {{genre.id_type}}</li>
+    {%endfor%}
+    {%for theater in piece.theater%}
+    <li>Lieu: {{theater.id_theater}}</li>
+    {%endfor%}
+
+    <li>Forme de la piece:
+        {{piece.configuration[0].id_configuration}}
+    </li>
+
+    {%if piece.is_published == 0%}
+    <li>Publiée: Non</li>
+    {%else%}
+    <li>Publiée: Oui</li>
+    {%endif%}
+    {%if piece.digitized is none:%}
+    <li>Lien vers numérisation: aucun</li>
+    {%else%}
+    <li>Lien vers numérisation: {{piece.digitized}}</li>
+    {%endif%}
+</ul>
 
 
 {%endblock%}
