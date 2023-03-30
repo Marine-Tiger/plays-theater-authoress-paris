@@ -24,11 +24,10 @@
         {%endif%}
     </ul>
     <ul>
-        {%for piece in id_authoress%}
-            {%for elm in piece%}
-        <li><a href="{{url_for('presentation_piece', titre=elm.titre)}}">{{elm.titre}}</a></li>
-            {%endfor%}
+        {%for piece in id_authoress['piece']%}
+        <li class="titre_piece"><a href="{{url_for('presentation_piece', titre=piece['titre'])}}">{{piece['titre']}}</a> ({{piece['date']}})</li>
         {%endfor%}
+        
     </ul>
     
 

@@ -5,8 +5,8 @@
 <h3>{{piece.title}}</h3>
 <ul class="infos_piece">
 
-    <li>Lien vers les Archives Nationales: {{piece.url_AN}}</li>
-    <li>Autrice: {{piece.authoress}}</li>
+    <li>Lien vers les Archives Nationales: <a href="{{piece.url_AN}}">{{piece.url_AN}}</a></li>
+    <li>Autrice: <a href="{{url_for('presentation', name= piece.authoress)}}">{{piece.authoress}}</a></li>
     <li>Autre(s) auteur.rice(s): {{piece.other_author}}</li>
     <li>Date de production: {{piece.date}}</li>
     {%for genre in piece.type%}
@@ -28,7 +28,7 @@
     {%if piece.digitized is none:%}
     <li>Lien vers numérisation: aucun</li>
     {%else%}
-    <li>Lien vers numérisation: {{piece.digitized}}</li>
+    <li>Lien vers numérisation: <a href="{{piece.digitized}}">{{piece.digitized}}</a></li>
     {%endif%}
 </ul>
 

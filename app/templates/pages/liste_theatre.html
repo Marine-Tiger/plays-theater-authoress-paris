@@ -7,7 +7,7 @@
 <div class="liste_theatre">
     <ul>
         {%for elm in theater:%}
-        <li><a>{{elm.name}}</a></li>
+        <li><a href="{{url_for('theatre_piece', theatre='elm')}}">{{elm}}</a></li>
         {%endfor%}
     </ul>
 </div>

@@ -92,7 +92,7 @@ def presentation_piece(titre):
 def liste_theatre():
     theater=[]
     for name_theater in Theater.query.order_by(Theater.id_theater).all():
-        theater.append({'name':name_theater.id_theater})
+        theater.append(name_theater.id_theater)
         print(theater)
     return render_template ('pages/liste_theatre.html',
                             theater=theater)
@@ -103,13 +103,10 @@ def theatre_piece(theatre):
     .join(Play.theater)\
     .filter(Theater.id_theater == theatre).all()
 
-    pieces=[0][0]
-    print(pieces)
-    theatre={}
-    theatre['theatre']= pieces.title
+    print(data)
 
     return render_template('pages/liste_theatre_pieces.html',
-                        liste = data,
+                        # liste = liste,
                         theatre = theatre)
 
 
