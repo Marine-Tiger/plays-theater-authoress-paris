@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField, PasswordField
 
 class AddAuthoress(FlaskForm):
     name = StringField('name_authoress', validators=[])
@@ -25,3 +25,11 @@ class Update(FlaskForm):
     new_is_published = StringField('is_published', validators=[])
     new_digitized = IntegerField('digitized', validators=[])
     new_other_author = StringField('new_other_author', validators=[])
+
+class AjoutUtilisateur(FlaskForm):
+    prenom = StringField("prenom", validators=[])
+    password = PasswordField("password", validators=[])
+
+class Connexion(FlaskForm):
+    prenom = StringField("prenom", validators=[])
+    password = PasswordField("password", validators=[])

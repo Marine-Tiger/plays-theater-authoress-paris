@@ -10,17 +10,20 @@
       {% include "partials/css.html" %}
    </head>
    <body>
-      <header> <img src="https://vl-media.fr/wp-content/uploads/2014/07/comedie-francaise.png" alt="Théâtre de la Comédie-Francaise, Paris" class="img"><nav><a href="./Pieces_de_theatre_écrites_par_autrices.html"> Page d'accueil </a><a href="./Liste_pieces_de_theatre.html"> Liste des pièces de théâtre</a><a href="./Configurations_pieces.html">Configurations des pièces représentées</a><a href="./Carte_des_theatres_Paris.html"> Carte des théâtres de Paris au 19ème siècle </a></nav>
+      <header>
+         <img src="https://vl-media.fr/wp-content/uploads/2014/07/comedie-francaise.png" alt="Théâtre de la Comédie-Francaise, Paris" class="img">
+         <nav>
+            <a href="{{url_for('home')}}"> Page d'accueil </a>
+            <a href="{{url_for('liste_pieces')}}"> Pièces de théâtre</a>
+            <a href="{{url_for('liste_theatre')}}">Théâtres</a>
+            <a href="./Carte_des_theatres_Paris.html"> Carte des théâtres de Paris au 19ème siècle </a>
+         </nav>
       </header>
-      <!-- <main>
-         <div class="up">
-            <h1>Liste des pièces de théâtre</h1>
-         </div>
-         <div class="listpieces">
-            <p>Liste des pièces de théâtre lorem ipsum
-            si a été publié, condition</p>
-         </div>
-      </main> -->
+      {% if current_user.is_authenticated %}
+      <a class="dropdown-item" href="{{ url_for('deconnexion') }}">Se déconnecter</a>
+      {% else %}
+      <a class="dropdown-item" href="{{ url_for('connexion') }}">Se connecter</a>
+      {% endif %}
       {% block body%}{%endblock%}
       <footer>
          <p>Application réalisée dans le cadre du master 2 TNAH </p>

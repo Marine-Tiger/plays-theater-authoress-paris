@@ -1,5 +1,6 @@
 from ..app import app, db
 from flask import render_template, request
+from flask_login import login_required
 from ..models.autrices import Play, Authoress, Theater
 from ..models.formulaires import Update
 from sqlalchemy.sql import text
@@ -8,6 +9,7 @@ import os
 from ..utils.transformations import  clean_arg
 
 @app.route("/update/autrices", methods=['GET', 'POST'])
+@login_required
 def update_authoress_name():
     form = Update()
 
@@ -32,6 +34,7 @@ def update_authoress_name():
             form=form)
 
 @app.route("/update/play/<string:id_play>", methods=['GET', 'POST'])
+@login_required
 def update_play(id_play):
     form = Update()
 

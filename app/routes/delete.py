@@ -1,5 +1,6 @@
 from ..app import app, db
 from flask import render_template, request
+from flask_login import login_required
 from ..models.autrices import Play, Authoress, Theater
 from ..models.formulaires import PlayForm
 from sqlalchemy import create_engine, exc
@@ -9,6 +10,7 @@ import os
 from ..utils.transformations import  clean_arg
 
 @app.route("/delete_autrice/<string:name>")
+@login_required
 def delete_autrices(name):
     
     Authoress.query.filter(Authoress.id == name).delete()
@@ -16,6 +18,7 @@ def delete_autrices(name):
     return('Succeeded')
 
 @app.route("/delete_theatre/<string:name>")
+@login_required
 def delete_theatre(name):
     
     Theater.query.filter(Theater.id_play == name).delete()
@@ -23,6 +26,7 @@ def delete_theatre(name):
     return('Succeeded')
 
 @app.route("/delete_piece/<string:name>")
+@login_required
 def delete_piece(name):
     
     Play.query.filter(Play.title == name).delete()

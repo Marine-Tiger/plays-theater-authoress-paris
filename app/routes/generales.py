@@ -62,7 +62,7 @@ def presentation(name):
 
 # PAGE DES PIECES DE THEATRE
 @app.route("/liste_pieces")
-def liste_piece():
+def liste_pieces():
     piece = []
     for titre_piece in Play.query.order_by(Play.title):
         piece.append({'title':titre_piece.title} )

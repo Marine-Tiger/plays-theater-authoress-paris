@@ -1,5 +1,6 @@
 from ..app import app, db
 from flask import render_template, request
+from flask_login import login_required
 from ..models.autrices import Play, Authoress, Theater
 from ..models.formulaires import PlayForm, AddAuthoress
 from sqlalchemy import create_engine, exc
@@ -11,6 +12,7 @@ from ..utils.transformations import  clean_arg
 
 # ROUTE INSERTION D'UNE PIECE DE THEATRE
 @app.route("/insertion/piece", methods=['GET', 'POST'])
+@login_required
 def insertion_piece():
     form = PlayForm() 
 
@@ -67,6 +69,7 @@ def insertion_piece():
 
 # ROUTE INSERTION D'UNE AUTRICE
 @app.route("/insertion/autrice", methods=['GET', 'POST'])
+@login_required
 def insertion_autrice():
     form = AddAuthoress()
 
