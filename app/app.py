@@ -11,4 +11,4 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 login = LoginManager(app)
 
-from .routes import generales, insertions, updates, delete, users
+from .routes import generales, insertions, updates, delete, users, graphiques

@@ -1,29 +1,68 @@
+{% extends "partials/conteneur.html" %}
+
+{%block body%}
+
 <form action="{{url_for('insertion_piece')}}" method="post" name="insertion_piece">
     {{ form.hidden_tag() }}
 
     <div class="form-group">
-        <label for="titre_piece">Titre de la pièce</label>
-        {{ form.title(class_="form-control", placeholder_="pièce") }}
-        <small id="titre_piece" class="form-text text-muted">Entrer le titre de la pièce</small>
+        <label for="url_AN">Cote des Archives Nationales *</label>
+        {{ form.url_AN(class_="form-control", placeholder_="lien vers les Archives Nationales") }}
     </div>
 
     <div class="form-group">
-        <label for="url_AN">Cote des AN</label>
-        {{ form.url_AN(class_="form-control", placeholder_="Code") }}
-        <small id="url_AN" class="form-text text-muted">Entrer la cote des AN</small>
+        <label for="titre_piece">Titre de la pièce *</label>
+        {{ form.title(class_="form-control", placeholder_="titre la pièce") }}
+    </div>
+
+    
+
+    <div class="form-group">
+        <label for="name_authoress">Nom de l'autrice*</label>
+        {{ form.name_authoress(class_="form-control", placeholder_="NOM, prénom") }}
     </div>
 
     <div class="form-group">
-        <label for="name_authoress">Nom de l'autrice</label>
-        {{ form.name_authoress(class_="form-control") }}
-        <small id="type" class="form-text text-muted">NOM, prénom</small>
+        <label for="other_author">Autres auteur.rice(s)</label>
+        {{ form.other_author(class_="form-control", placeholder_="NOM, prénom") }}
     </div>
+    
 
     <div class="form-group">
         <label for="name_theater">Théâtre</label>
-        {{ form.name_theater(class_="form-control") }}
-        <small id="introduction" class="form-text text-muted">Nom du théâtre</small>
+        {{ form.name_theater(class_="form-control", placeholder_="nom du théâtre où a été produit la pièce") }}
     </div>
 
-    <p><input type="submit" value="Insérer"></p>
+    <div class="form-group">
+        <label for="date">Date de production</label>
+        {{ form.date(class_="form-control", placeholder_="yyyy-MM-dd") }}
+    </div>
+
+    <div class="form-group">
+        <label for="type">Genre</label>
+        {{ form.type(class_="form-control") }}
+        <small id="ressources" class="form-text text-muted">Sélectionner un genre</small>
+    </div>
+
+    <div class="form-group">
+        <label for="configuration">Forme de la pièce</label>
+        {{ form.configuration(class_="form-control", placeholder_="Forme de la pièce") }}
+    </div>
+
+    <div class="form-group">
+        <label for="is_published">Publication</label>
+        {{ form.is_published(class_="form-control", placeholder_="Publiée ou non") }}
+        <small id="ressources" class="form-text text-muted">Pour la base donnée, entrer 0 pour non publiée ou 1 pour publiée</small>
+    </div>
+
+    <div class="form-group">
+        <label for="digitized">Numérisation</label>
+        {{ form.digitized(class_="form-control", placeholder_="Lien vers la pièce numérisée") }}
+    </div>
+
+    <div class="button_insertion"><input type="submit" value="Insérer"></div>
+
+    <p>* champs obligatoires</p>
 </form>
+
+{%endblock%}

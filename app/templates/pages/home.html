@@ -6,8 +6,8 @@
 
 <div class="liste_autrices">
     <ul>
-        {%for elm in name:%}
-        <li><a href="{{url_for('presentation', name='elm.id')}}">{{elm.authoress}}</a></li>
+        {%for elm in name%}
+        <li><a href="{{url_for('presentation', name=elm.authoress)}}">{{elm.authoress}}</a></li>
         {%endfor%}
     </ul>
 </div>

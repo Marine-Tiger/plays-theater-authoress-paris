@@ -19,6 +19,28 @@
             <a href="./Carte_des_theatres_Paris.html"> Carte des théâtres de Paris au 19ème siècle </a>
          </nav>
       </header>
+      
+      <!-- ##### MESSAGE D'ERREUR #### -->
+      <div class="container">
+         {% with messages = get_flashed_messages(with_categories=true) %}
+         {% if messages %}
+         <div class="row">
+           <div class="col">
+             {% for category, message in messages %}
+             <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
+             {% endfor %}
+           </div>
+         </div>
+         {% endif %}
+         {% endwith %}
+         <div class="row">
+           <div class="col">
+             {% block error %}{% endblock %}
+           </div>
+         </div>
+       </div>
+       
+       <!-- ##### CONNEXION/DECONNEXION DES UTILISATEURS ##### -->
       {% if current_user.is_authenticated %}
       <a class="dropdown-item" href="{{ url_for('deconnexion') }}">Se déconnecter</a>
       {% else %}

@@ -111,7 +111,7 @@ a:hover {
     justify-content: center;
 }
 form {
-    /*les marges intérieures sont de 50px sur l'axe y et 37.5% sur l'axe x*/
+    /*les marges intérieures sont de 50px sur l'axe y et 30.5% sur l'axe x*/
     padding: 10px 30.5%;
     color: #5E548E;
     font-family: Georgia, sans-serif;
@@ -132,6 +132,16 @@ input{
 form>* {
     margin-top: 10px;
 }
+
+select{
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    width: 370px;
+    color: #5E548E;
+    font-family: Georgia, sans-serif;
+}
+
 
 .button_insertion > input{
     width: 40%;

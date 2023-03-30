@@ -1,0 +1,51 @@
+<canvas id="graphique" width="800" height="800"></canvas>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.2/dist/chartjs-plugin-deferred.min.js"></script>
+    <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-colorschemes/releases/download/v0.4.0/chartjs-plugin-colorschemes.js"></script>
+
+<script>
+const ctx = document.getElementById('graphique');
+
+const graphe = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: [],
+        datasets: [{
+            data: []
+        }]
+    },
+    options: {
+    }
+});
+
+fetch('{{url_for("graphiques_type_play")}}')
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        console.log(data);
+        // calcul des labels et des nombres
+        var labels = [];
+        var nombres = [];
+
+        // itération sur le retour de l'URL graphiques_ressources_pays_donnees
+        for (var i = 0; i < data.length; i++) {
+            // comme en Python, on rempli ici les tableaux
+            labels.push(data[i].label);
+            nombres.push(data[i].nombre);
+        }
+        
+        // ajout des données dans le graphique
+        graphe.data.labels = labels; ;
+        graphe.data.datasets.forEach((dataset) => {
+            dataset.data = nombres;
+        });
+        graphe.options.plugins.colorschemes.scheme = 'tableau.RedGold21';
+        // mise à jout du graphique une fois les données calculées et insérées dans le graphique
+        graphe.update();
+        
+    });
+    </script>
+    

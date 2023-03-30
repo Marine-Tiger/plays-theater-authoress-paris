@@ -1,12 +1,6 @@
 from ..app import app, db
-from flask import render_template, request
-from ..models.autrices import Play, Authoress, play_theater, Theater, Configuration, Type, play_configuration, play_type
-from ..models.formulaires import PlayForm
-from sqlalchemy import create_engine, exc
-from sqlalchemy.sql import text
-from sqlalchemy import or_, and_
-import os
-from ..utils.transformations import  clean_arg
+from flask import render_template
+from ..models.autrices import Play, Authoress, Theater
 
 @app.route("/home", methods=["GET","POST"])
 def home():
@@ -27,7 +21,7 @@ def presentation(name):
     # Python ne sait pas comment transformer une instance de classe en json car impossible 
     # (une instance de classe peut contenir des fonctions/attributs prives/publics = pas representable en json)
     # ==> on transf la donnee en dict que python sait serialiser (transfo) en json (donc en donnees les unes a la suite des autres)
-
+    print(data)
     # creation d'une variable autrice qui stocke l'elmt[0] la tuple
     autrice=data[0][0]
     # on ajoute au dictionnaire une clef dont la valeur est le 1er elmt de la tuple

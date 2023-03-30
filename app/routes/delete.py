@@ -1,13 +1,6 @@
 from ..app import app, db
-from flask import render_template, request
 from flask_login import login_required
 from ..models.autrices import Play, Authoress, Theater
-from ..models.formulaires import PlayForm
-from sqlalchemy import create_engine, exc
-from sqlalchemy.sql import text
-from sqlalchemy import or_
-import os
-from ..utils.transformations import  clean_arg
 
 @app.route("/delete_autrice/<string:name>")
 @login_required
