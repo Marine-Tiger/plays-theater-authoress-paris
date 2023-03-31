@@ -3,17 +3,27 @@
 
 <h3 id="form">Modification de la table autrice</h3>
 
-<form action="{{url_for('update_authoress_name')}}" method="post" name="update_autrice">
+<form action="{{url_for('update_autrice', name=name)}}" method="post" name="update_autrice">
     {{ form.hidden_tag() }}
 
     <div class="form-group">
-        <label for="name_authoress">Nom de l'autrice</label>
-        {{ form.name_authoress(class_="form-control", placeholder_="Entrer le NOM, prénom") }}
+        <label for="name_authoress">Modifier le nom de l'autrice</label>
+        {{ form.name_authoress(class_="form-control", placeholder_="NOM, prénom") }}
     </div>
 
     <div class="form-group">
-        <label for="new_name_authoress">Nouveau nom</label>
-        {{ form.new_name_authoress(class_="form-control", placeholder_="Entrer le NOM, prénom") }}
+        <label for="lien_wikipedia">Ajouter/modifier une page Wikipédia</label>
+        {{ form.lien_wikipedia(class_="form-control", placeholder_="Lien Wikipédia") }}
+    </div>
+
+    <div class="form-group">
+        <label for="id_wikidata">Ajouter/modifier un référentiel Wikidata</label>
+        {{ form.id_wikidata(class_="form-control", placeholder_="Lien Wikiata") }}
+    </div>
+
+    <div class="form-group">
+        <label for="lien_bnf">Ajouter/modifier une notice de personne de la BnF</label>
+        {{ form.lien_bnf(class_="form-control", placeholder_="Lien BnF") }}
     </div>
 
 

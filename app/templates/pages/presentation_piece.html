@@ -31,6 +31,7 @@
     <li>Lien vers numérisation: <a href="{{piece.digitized}}">{{piece.digitized}}</a></li>
     {%endif%}
 </ul>
+<a class="update" href="{{url_for('update_play', id_play=piece.id_play)}}">Modifier les informations</a>
 
 
 {%endblock%}

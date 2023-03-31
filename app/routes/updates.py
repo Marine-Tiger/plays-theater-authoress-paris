@@ -8,33 +8,41 @@ from sqlalchemy import or_
 import os
 from ..utils.transformations import  clean_arg
 
-@app.route("/update/autrices", methods=['GET', 'POST'])
+@app.route("/update/autrice/<string:name>", methods=['GET', 'POST'])
 @login_required
-def update_authoress_name():
+def update_autrice(name):
     form = Update()
     try:
         if form.validate_on_submit():
             name_authoress =  clean_arg(request.form.get("name_authoress", None))
-            new_name_authoress =  clean_arg(request.form.get("new_name_authoress", None))
+            lien_wikipedia = clean_arg(request.form.get("lien_wikipedia", None))
+            id_wikidata = clean_arg(request.form.get("lien_wikipedia", None))
+            lien_bnf = clean_arg(request.form.get("lien_wikipedia", None))
 
             update = {}
             if name_authoress:
-                authoress_in_db = Authoress.query.filter(Authoress.id == name_authoress).all()
-                if authoress_in_db is not None:
-                    Authoress.query.filter(Authoress.id == name_authoress).update({"id": new_name_authoress})
+                update['id'] = name_authoress
+            
+            if lien_wikipedia:
+                update['wikipedia'] = lien_wikipedia
 
-                    db.session.commit()
-                    print('Ca fonctionne')
-                else:
-                    print('Cette autrice existe déjà.')
-                db.session.commit()
+            if id_wikidata:
+                update['wikidata'] = id_wikidata
+
+            if lien_bnf:
+                update['bnf'] = lien_bnf
+
+            Authoress.query.filter(Authoress.id == name).update(update)                
+            db.session.commit()
+
         flash("Les informations ont bien été mises à jour.")    
     except Exception as e :
         print(e)
         flash("Une erreur s'est produite lors de la mise à jour des données:" + str(e), "error")
     
     return render_template("partials/formulaires/update_autrice.html", 
-            sous_titre= "Update autrices" , 
+            sous_titre= "Update autrice", 
+            name=name,
             form=form)
 
 @app.route("/update/play/<string:id_play>", methods=['GET', 'POST'])

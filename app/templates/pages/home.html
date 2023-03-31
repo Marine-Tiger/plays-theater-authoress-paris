@@ -2,13 +2,13 @@
 
 {%block body%}
 
-<h2>Liste des autrices</h2>
 
-<div class="liste_autrices">
+
+<div class="accueil">
     <ul>
-        {%for elm in name%}
-        <li><a href="{{url_for('presentation', name=elm.authoress)}}">{{elm.authoress}}</a></li>
-        {%endfor%}
+        <li><a href="{{url_for('autrices')}}">Listes des autrices</a></li>
+        <li><a href="{{url_for('pieces')}}">Listes des pièces des théâtres</a></li>
+        <li><a href="{{url_for('theatres')}}">Listes des théâtres</a></li>
     </ul>
 </div>
 

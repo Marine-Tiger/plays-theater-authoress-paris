@@ -1,12 +1,11 @@
 {% extends "partials/conteneur.html" %}
 
 {%block body%}
-<!-- on retrouve ici la variable piece declaree dans la route liste_pieces/titre de generales.py -->
-<h3>{{liste.id_theater}}</h3>
+<h3>{{liste_pieces_theatre['theatre']['id_theater']}}</h3>
 <ul class="liste_pieces_theatre">
 
-    {%for piece in liste.id_theater%}
-    <li>{{piece['theatre']}}</li>
+    {%for piece in liste_pieces_theatre['liste_pieces']%}
+    <li><a href="{{url_for('presentation_piece', titre=piece['titre'])}}">{{piece['titre']}}</a></li>
     {%endfor%}
 </ul>
 

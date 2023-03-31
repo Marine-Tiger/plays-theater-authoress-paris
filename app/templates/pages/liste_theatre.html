@@ -2,14 +2,20 @@
 
 {%block body%}
 
-<h2>Liste des théâtres</h2>
-
-<div class="liste_theatre">
-    <ul>
-        {%for elm in theater:%}
-        <li><a href="{{url_for('theatre_piece', theatre='elm')}}">{{elm}}</a></li>
-        {%endfor%}
-    </ul>
-</div>
-
+<h3>Théâtres</h3>
+<ul class="Liste théâtres">
+    {%if donnees.prev_num %}
+                <a class="list-group-item" href="{{ url_for('theatres', page=donnees.prev_num) }}">
+                    Page précédente &lt;
+                </a>
+                {% endif %}
+    {%for theatre in donnees.items%}
+    <li><a href="{{url_for('theatre_piece', theatre=theatre.id_theater)}}">{{theatre.id_theater}}</a></li>
+    {%endfor%}
+    {%if donnees.next_num %}
+                <a class="list-group-item" href="{{ url_for('theatres', page=donnees.next_num) }}">
+                    Page suivante &gt;
+                </a>
+                {% endif %}
+</ul>
 {%endblock%}

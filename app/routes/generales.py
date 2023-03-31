@@ -2,16 +2,21 @@ from ..app import app, db
 from flask import render_template
 from ..models.autrices import Play, Authoress, Theater
 
-@app.route("/home", methods=["GET","POST"])
+
+@app.route("/home")
 def home():
-    name = []
-    for name_authoress in Authoress.query.order_by(Authoress.id).all():
-        name.append({'authoress': name_authoress.id})
-    return render_template ('pages/home.html',
-                            name=name)
+    return render_template('pages/home.html')
+
+# PAGE LISTE DES AUTRICES
+@app.route("/autrices")
+@app.route("/autrices/<int:page>")
+def autrices(page=1):
+    return render_template ('pages/liste_autrices.html',
+                            sous_titre = 'Index des autrices',
+                            donnees=Authoress.query.order_by(Authoress.id).paginate(page=page, per_page=app.config["AUTRICES_PER_PAGE"]))
 
 # PAGE DE PRESENTATION DES AUTRICES
-@app.route("/presentation_autrice/<string:name>")
+@app.route("/autrices/<string:name>")
 def presentation(name):
     data= db.session.query(Authoress, Play)\
     .join(Play.Authoress).\
@@ -55,19 +60,18 @@ def presentation(name):
 
 
 # PAGE DES PIECES DE THEATRE
-@app.route("/liste_pieces")
-def liste_pieces():
-    piece = []
-    for titre_piece in Play.query.order_by(Play.title):
-        piece.append({'title':titre_piece.title} )
-    
-    return render_template ('pages/liste_pieces.html',
-                            piece=piece)
+@app.route("/pieces")
+@app.route("/pieces/<int:page>")
+def pieces(page=1):
+     return render_template('pages/liste_pieces.html',
+                            sous_titre = 'Index des pièces de théâtre',
+                            donnees=Play.query.order_by(Play.title).paginate(page=page, per_page=app.config["PIECES_PER_PAGE"]))
+
 
 # .paginate(page=page, per_page=app.config["PLAY_PER_PAGE"])
 
 # PAGE POUR CHAQUE PIECE
-@app.route("/liste_pieces/<string:titre>")
+@app.route("/pieces/<string:titre>")
 def presentation_piece(titre):
     # J'effectue une requete SQLAlchemy pour recuperer les informations des tables Play, Configuration, Theater et Type 
     # en faisant un .join avec les jointures declarees dans la class Play
@@ -78,7 +82,7 @@ def presentation_piece(titre):
     .join(Play.type)\
     .filter(Play.title == titre).all()
     # Je renvoie vers la template
-    return render_template ('pages/liste_pieces_titre.html',
+    return render_template ('pages/presentation_piece.html',
                             # pour pouvoir utiliser les resultats contenus dans data qui est une liste, 
                             # je cree une variable piece qui va contenir la liste de l'ensemble des informations requêtées
                             # même si je sais qu'il n'y a qu'une seule piece, je suis obligee de le preciser avec le [0] 
@@ -88,16 +92,14 @@ def presentation_piece(titre):
 
 
 # PAGE POUR LES THEATRES
-@app.route("/liste_theatre")
-def liste_theatre():
-    theater=[]
-    for name_theater in Theater.query.order_by(Theater.id_theater).all():
-        theater.append(name_theater.id_theater)
-        print(theater)
-    return render_template ('pages/liste_theatre.html',
-                            theater=theater)
+@app.route("/theatres")
+@app.route("/theatres/<int:page>")
+def theatres(page=1):
+     return render_template('pages/liste_theatre.html',
+                            sous_titre = 'Index des théâtres',
+                            donnees=Theater.query.order_by(Theater.id_theater).paginate(page=page, per_page=app.config["THEATRES_PER_PAGE"]))
 
-@app.route("/liste_theatre/<string:theatre>")
+@app.route("/theatres/<string:theatre>")
 def theatre_piece(theatre):
     data= db.session.query(Theater, Play)\
     .join(Play.theater)\
@@ -105,9 +107,26 @@ def theatre_piece(theatre):
 
     print(data)
 
+    theatre_pieces = data[0][0]
+
+    liste_pieces_theatre={}
+    liste_pieces_theatre['theatre']={
+        'id_theater': theatre_pieces.id_theater
+    }
+
+    liste_pieces_theatre['liste_pieces']=[
+
+    ]
+
+    for elm in data:
+        pieces = elm[1]
+        liste_pieces_theatre['liste_pieces'].append({
+                    'titre': pieces.title
+        })
+
     return render_template('pages/liste_theatre_pieces.html',
-                        # liste = liste,
-                        theatre = theatre)
+                        data = data,
+                        liste_pieces_theatre=liste_pieces_theatre)
 
 
     
