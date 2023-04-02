@@ -1,4 +1,9 @@
-<canvas id="graphique" width="800" height="800"></canvas>
+{% extends "partials/conteneur.html" %}
+
+{%block body%}
+
+<div class="graphique_type">
+<canvas id="type" width="400" height="400"></canvas>
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
@@ -6,9 +11,9 @@
     <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-colorschemes/releases/download/v0.4.0/chartjs-plugin-colorschemes.js"></script>
 
 <script>
-const ctx = document.getElementById('graphique');
+const ctx_type = document.getElementById('type');
 
-const graphe = new Chart(ctx, {
+const graphe_type = new Chart(ctx_type, {
     type: 'pie',
     data: {
         labels: [],
@@ -20,7 +25,7 @@ const graphe = new Chart(ctx, {
     }
 });
 
-fetch('{{url_for("graphiques_type_play")}}')
+fetch('{{url_for("graphique_type_play")}}')
     .then((response) => {
         return response.json();
     })
@@ -38,14 +43,168 @@ fetch('{{url_for("graphiques_type_play")}}')
         }
         
         // ajout des données dans le graphique
-        graphe.data.labels = labels; ;
-        graphe.data.datasets.forEach((dataset) => {
+        graphe_type.data.labels = labels; ;
+        graphe_type.data.datasets.forEach((dataset) => {
             dataset.data = nombres;
         });
-        graphe.options.plugins.colorschemes.scheme = 'tableau.RedGold21';
+        graphe_type.options.plugins.colorschemes.scheme = 'tableau.RedGold21';
         // mise à jout du graphique une fois les données calculées et insérées dans le graphique
-        graphe.update();
+        graphe_type.update();
         
     });
     </script>
+</div>
+
+
+<canvas id="theater" width="400" height="400"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.2/dist/chartjs-plugin-deferred.min.js"></script>
+    <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-colorschemes/releases/download/v0.4.0/chartjs-plugin-colorschemes.js"></script>
+
+<script>
+const ctx_theater = document.getElementById('theater');
+
+const graphe_theater = new Chart(ctx_theater, {
+    type: 'pie',
+    data: {
+        labels: [],
+        datasets: [{
+            data: []
+        }]
+    },
+    options: {
+    }
+});
+
+fetch('{{url_for("graphique_theater_play")}}')
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        console.log(data);
+        // calcul des labels et des nombres
+        var labels = [];
+        var nombres = [];
+
+        // itération sur le retour de l'URL graphiques_ressources_pays_donnees
+        for (var i = 0; i < data.length; i++) {
+            // comme en Python, on rempli ici les tableaux
+            labels.push(data[i].label);
+            nombres.push(data[i].nombre);
+        }
+        
+        // ajout des données dans le graphique
+        graphe_theater.data.labels = labels; ;
+        graphe_theater.data.datasets.forEach((dataset) => {
+            dataset.data = nombres;
+        });
+        graphe_theater.options.plugins.colorschemes.scheme = 'tableau.Purple20';
+        // mise à jout du graphique une fois les données calculées et insérées dans le graphique
+        graphe_theater.update();
+        
+    });
+    </script>
+
+<canvas id="configuration" width="400" height="400"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.2/dist/chartjs-plugin-deferred.min.js"></script>
+    <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-colorschemes/releases/download/v0.4.0/chartjs-plugin-colorschemes.js"></script>
+
+<script>
+const ctx_configuration = document.getElementById('configuration');
+
+const graphe_configuration = new Chart(ctx_configuration, {
+    type: 'pie',
+    data: {
+        labels: [],
+        datasets: [{
+            data: []
+        }]
+    },
+    options: {
+    }
+});
+
+fetch('{{url_for("graphique_configuration_play")}}')
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        console.log(data);
+        // calcul des labels et des nombres
+        var labels = [];
+        var nombres = [];
+
+        // itération sur le retour de l'URL graphiques_ressources_pays_donnees
+        for (var i = 0; i < data.length; i++) {
+            // comme en Python, on rempli ici les tableaux
+            labels.push(data[i].label);
+            nombres.push(data[i].nombre);
+        }
+        
+        // ajout des données dans le graphique
+        graphe_configuration.data.labels = labels; ;
+        graphe_configuration.data.datasets.forEach((dataset) => {
+            dataset.data = nombres;
+        });
+        graphe_configuration.options.plugins.colorschemes.scheme = 'tableau.RedGold21';
+        // mise à jout du graphique une fois les données calculées et insérées dans le graphique
+        graphe_configuration.update();
+        
+    });
+    </script>
+
+<canvas id="publication" width="400" height="400"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.2/dist/chartjs-plugin-deferred.min.js"></script>
+    <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-colorschemes/releases/download/v0.4.0/chartjs-plugin-colorschemes.js"></script>
+
+<script>
+const ctx_publication = document.getElementById('publication');
+
+const graphe_publication= new Chart(ctx_publication, {
+    type: 'pie',
+    data: {
+        labels: [],
+        datasets: [{
+            data: []
+        }]
+    },
+    options: {
+    }
+});
+
+fetch('{{url_for("graphique_is_published")}}')
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        console.log(data);
+        // calcul des labels et des nombres
+        var labels = [];
+        var nombres = [];
+
+        // itération sur le retour de l'URL graphiques_ressources_pays_donnees
+        for (var i = 0; i < data.length; i++) {
+            // comme en Python, on rempli ici les tableaux
+            labels.push(data[i].label);
+            nombres.push(data[i].nombre);
+        }
+        
+        // ajout des données dans le graphique
+        graphe_publication.data.labels = labels; ;
+        graphe_publication.data.datasets.forEach((dataset) => {
+            dataset.data = nombres;
+        });
+        graphe_publication.options.plugins.colorschemes.scheme = 'tableau.RedGold21';
+        // mise à jout du graphique une fois les données calculées et insérées dans le graphique
+        graphe_publication.update();
+        
+    });
+    </script>
+    
+{%endblock%}
     
