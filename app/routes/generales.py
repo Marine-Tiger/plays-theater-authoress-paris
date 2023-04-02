@@ -1,6 +1,7 @@
 from ..app import app, db
 from flask import render_template
 from ..models.autrices import Play, Authoress, Theater
+# import wikipedia
 
 
 @app.route("/home")

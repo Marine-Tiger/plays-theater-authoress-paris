@@ -13,8 +13,7 @@ def graphique_type_play():
      test_data= db.session.query(Type, func.count(play_type.c.id_type).label('total'))\
     .join(play_type, )\
      .group_by(Type.id_type)\
-     .order_by(text('total DESC'))\
-     .limit(10)
+     .order_by(text('total DESC'))
 
      data = []
 
@@ -31,8 +30,7 @@ def graphique_theater_play():
      raw_data= db.session.query(Theater, func.count(play_theater.c.id_theater).label('total'))\
     .join(play_theater, )\
      .group_by(Theater.id_theater)\
-     .order_by(text('total DESC'))\
-     .limit(10)
+     .order_by(text('total DESC'))
 
 
      data = []
