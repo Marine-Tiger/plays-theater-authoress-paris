@@ -42,23 +42,23 @@ def graphique_type_play():
 
      data = []
 
-# Plutot que de limiter le nombre de resultats, on va creer un dictionnaire autres
+# Plutot que de limiter le nombre de résultats, on va créer un dictionnaire autres
      autres= {
           "label": 'Autres',
           "nombre": 0
      }
 
      for type in test_data.all():
-          # Si le nombre total par genre est inferieur a 5
+          # Si le nombre total par genre est inférieur à 5
           if type.total < 5:
-               # On ajoute a l'entree 'nombre' le nombre total par genre
+               # On ajoute à l'entrée 'nombre' le nombre total par genre
                autres['nombre'] += type.total
           else:
                data.append({
                     "label": type[0].id_type,
                     "nombre": type.total
                })
-     # On ajoute le dictionnaire autres une fois la boucle terminee
+     # On ajoute le dictionnaire autres une fois la boucle terminée
      data.append(autres)
      return data
 

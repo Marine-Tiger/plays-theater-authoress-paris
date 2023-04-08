@@ -4,7 +4,7 @@ from ..models.autrices import Play, Authoress, Theater, Quote
 # librairie pour importer des informations de wikipedia
 import wikipedia
 import urllib
-# librairie pour effectuer des requetes SPARQL dans Wikidata
+# librairie pour effectuer des requêtes SPARQL dans Wikidata
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 
@@ -33,13 +33,13 @@ def presentation(name):
 
 
     # Python ne sait pas comment transformer une instance de classe en json car impossible 
-    # (une instance de classe peut contenir des fonctions/attributs prives/publics = pas representable en json)
-    # ==> on transf la donnee en dict que python sait serialiser (transfo) en json (donc en donnees les unes a la suite des autres)
+    # (une instance de classe peut contenir des fonctions/attributs privés/publics = pas représentable en json)
+    # ==> on transf la donnée en dict que python sait sérialiser (transfo) en json (donc en données les unes à la suite des autres)
 
-    # creation d'une variable autrice qui stocke l'elmt[0] la tuple
+    # création d'une variable autrice qui stocke l'elmt[0] la tuple
     autrice=data[0][0]
     # on ajoute au dictionnaire une clef dont la valeur est le 1er elmt de la tuple
-    # pour transformer l'elmt en dictionnaire, on accede a sa propriete via le .[propriete] ==> propriete qui est un string ici
+    # pour transformer l'elmt en dictionnaire, on accède à sa propriété via le .[propriete] ==> propriété qui est un string ici
     authoress['authoress'] = {
         'id': autrice.id, 
         'wikipedia': autrice.wikipedia, 
@@ -48,16 +48,16 @@ def presentation(name):
         'img_wiki': autrice.url_image_wikipedia
     }
 
-    # Pour ajouter les proprietes de la classe Play
-    # La clef 'piece' a pour valeur une liste
+    # Pour ajouter les propriétés de la classe Play
+    # La clef 'pièce' a pour valeur une liste
     authoress['piece'] =  [
     ]
     
-    # Pour recuperer les donnees de la table Play
+    # Pour récupérer les données de la table Play
     for elm in data:
-        # une variable piece qui vaut la position une dans la tuple
+        # une variable pièce qui vaut la position une dans la tuple
         piece=elm[1]
-        # a chaque tour, on ajoute a la liste les differents elements de la table Play
+        # à chaque tour, on ajoute à la liste les différents éléments de la table Play
         authoress['piece'].append({'cote_AN':piece.url_AN, 
                                       'titre':piece.title, 
                                       'date': piece.date, 
@@ -71,10 +71,10 @@ def presentation(name):
         # stockage dans une variable de l'url wikidata
         wikidata_url= authoress['authoress']['wikidata']
 
-        # split pour recuperer seulement l'entite ID wikidata
+        # split pour récupérer seulement l'entité ID wikidata
         wikidata_entity = wikidata_url.split('/')
         wikidata_entity_id = wikidata_entity[-1]
-        # La requete SPARQL, on ajoute la variable wikidata_entity_id grace au + (concatenation)
+        # La requête SPARQL, on ajoute la variable wikidata_entity_id grâce au + (concatenation)
         sparql_query = """
             SELECT ?pic
             WHERE
@@ -85,7 +85,7 @@ def presentation(name):
             }
             LIMIT 1
             """
-        # Envoie la requete à exécuter à la librairie
+        # Envoie la requête à exécuter à la librairie
         sparql.setQuery(sparql_query)
         # On récupère le format en JSON = dictionnaire
         sparql.setReturnFormat(JSON)
@@ -129,8 +129,8 @@ def pieces(page=1):
 # PAGE POUR CHAQUE PIECE
 @app.route("/pieces/<string:titre>")
 def presentation_piece(titre):
-    # J'effectue une requete SQLAlchemy pour recuperer les informations des tables Play, Configuration, Theater et Type 
-    # en faisant un .join avec les jointures declarees dans la class Play
+    # J'effectue une requête SQLAlchemy pour récupérer les informations des tables Play, Configuration, Theater et Type 
+    # en faisant un .join avec les jointures déclarées dans la class Play
     data= db.session.query(Play)\
     .select_from(Play)\
     .join(Play.configuration)\
@@ -139,9 +139,9 @@ def presentation_piece(titre):
     .filter(Play.title == titre).one()
     # Je renvoie vers la template
     return render_template ('pages/presentation_piece.html',
-                            # pour pouvoir utiliser les resultats contenus dans data qui est une liste, 
-                            # je cree une variable piece qui va contenir la liste de l'ensemble des informations requêtées
-                            # même si je sais qu'il n'y a qu'une seule piece, je suis obligee de le preciser avec le [0] 
+                            # pour pouvoir utiliser les résultats contenus dans data qui est une liste, 
+                            # je crée une variable piece qui va contenir la liste de l'ensemble des informations requêtées
+                            # même si je sais qu'il n'y a qu'une seule pièce, je suis obligée de le preciser avec le [0] 
                             # car la machine ne le sait pas
                             piece = data,
                             titre = titre)

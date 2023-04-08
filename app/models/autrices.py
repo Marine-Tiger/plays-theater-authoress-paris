@@ -1,31 +1,29 @@
 from ..app import app, db
 
-# #table de relation configuration(forme) et play (la piece)
+#table de relation configuration(forme) et play (la pièce)
 play_configuration = db.Table(
     "play_configuration",
     db.Column('id_configuration', db.Text, db.ForeignKey('configuration.id_configuration'), primary_key=True),
     db.Column('id_play', db.Text, db.ForeignKey('play.id_play'), primary_key=True)
 )
 
-#table de relation theatre(lieux) et play (la piece)
+#table de relation théâtre(lieux) et play (la pièce)
 play_theater = db.Table(
     "play_theater",
     db.Column('id_theater', db.Text, db.ForeignKey('theater.id_theater'), primary_key=True),
     db.Column('id_play', db.Text, db.ForeignKey('play.id_play'), primary_key=True)
 )
 
-#table de relation type(genres) et play (la piece)
+#table de relation type(genres) et play (la pièce)
 play_type = db.Table(
     "play_type",
     db.Column('id_type', db.String(100), db.ForeignKey('type.id_type'), primary_key=True),
     db.Column('id_play', db.Text, db.ForeignKey('play.id_play'), primary_key=True)
 )
 
-# Table de la piece de theatre
+# Table de la pièce de théâtre
 class Play(db.Model):
-    #on peut nommer la table autre que le nom de la classe, permet de changer plus facilement
     __tablename__ = "play"
-    #db.Text = pas de nombres de caracteres predefinis // db.String on definit la longueur de la chaine de caracteres
     id_play = db.Column(db.Text, primary_key=True)
     title = db.Column(db.Text, nullable=False)
     date = db.Column(db.Integer)
@@ -83,11 +81,3 @@ class Authoress(db.Model):
     wikipedia = db.Column(db.Text, nullable=True)
     bnf = db.Column(db.Text, nullable=True)
     url_image_wikipedia = db.Column(db.Text, nullable=True)
-
-class Quote(db.Model):
-    __tablename__ = "quote"
-    authoress = db.Column(db.Text, primary_key=True)
-    quote = db.Column(db.Text, nullable=True)
-    source = db.Column(db.Text, nullable=True)
-    date = db.Column(db.Text, nullable=True)
-    id = db.Column(db.Text, db.ForeignKey('authoress.id'))

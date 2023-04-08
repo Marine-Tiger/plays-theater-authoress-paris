@@ -10,7 +10,7 @@ class AddAuthoress(FlaskForm):
     lien_bnf = StringField('name_theater', validators=[])
 
 class AddPlay(FlaskForm):
-    # fonction pour permettre de selectionner en valeurs de SelectField la table Type
+    # fonction pour permettre de sélectionner en valeurs de SelectField la table Type
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.type.choices = [

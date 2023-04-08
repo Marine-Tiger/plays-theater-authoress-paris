@@ -32,7 +32,7 @@ def insertion_piece():
             # URL DE LA PIECE ET TITRE
             # md5 permet de hasher l'url_AN pour obtenir un id plus facilement manipulable par la machine (sans / dedans etc...)
             id_play = md5(url_AN.encode('utf-8')).hexdigest()
-            # on verifie si l'id existe
+            # on vérifie si l'id existe
             play_in_db = Play.query.filter(Play.url_AN == url_AN).all()
             
             if not play_in_db:
@@ -46,10 +46,10 @@ def insertion_piece():
             #  POUR L'AUTRICE
             # si le champs name_authoress est rempli
             if name_authoress:
-                # on verifie si le nom existe deja
+                # on vérifie si le nom existe déjà
                 authoress_in_db = Authoress.query.filter(Authoress.id == name_authoress).all()
                 
-                # s'il n'existe pas, on peut creer la nouvelle autrice
+                # s'il n'existe pas, on peut créer la nouvelle autrice
                 if not authoress_in_db:
                     print(authoress_in_db)
                     new_authoress = Authoress(id=name_authoress)
@@ -84,7 +84,7 @@ def insertion_piece():
             if configuration:
                 configuration_in_db = Configuration.query.filter(Configuration.id_configuration == configuration).all()
                 
-                # s'il n'existe pas, on peut creer la nouvelle autrice
+                # s'il n'existe pas, on peut créer la nouvelle autrice
                 if not configuration_in_db:
                     new_configuration = Configuration(id_configuration=configuration)
                     db.session.add(new_configuration)
