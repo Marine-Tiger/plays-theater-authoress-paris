@@ -52,9 +52,8 @@ def presentation(name):
     # La clef 'piece' a pour valeur une liste
     authoress['piece'] =  [
     ]
-
-
     
+    # Pour recuperer les donnees de la table Play
     for elm in data:
         # une variable piece qui vaut la position une dans la tuple
         piece=elm[1]
@@ -67,7 +66,7 @@ def presentation(name):
                                       'publié': piece.is_published == 1})
     
     # REQUETE SPARQL POUR RECUPERER UNE IMAGE DANS WIKIDATA
-    if authoress['authoress']['wikidata'] is not None:
+    if authoress['authoress']['wikidata'] is not None and authoress['authoress']['img_wiki'] is None:
 
         # stockage dans une variable de l'url wikidata
         wikidata_url= authoress['authoress']['wikidata']
@@ -86,41 +85,31 @@ def presentation(name):
             }
             LIMIT 1
             """
-        # Envoie la requete a execute a la librairie
+        # Envoie la requete à exécuter à la librairie
         sparql.setQuery(sparql_query)
-        # On recupere le format en JSON = dictionnaire
+        # On récupère le format en JSON = dictionnaire
         sparql.setReturnFormat(JSON)
-        # Converti avec tous les parametres donnes
+        # Converti avec tous les paramètres donnés
         sparql_res = sparql.query().convert()
         
-        # pour etre sur de recuperer celles qui ont des images
+        # pour être sûr de récupérer celles qui ont des images
         try:
             result = sparql_res['results']['bindings'][0]['pic']['value']
-            # on ajoute le resultat a la table Authoress
+            # on ajoute le résultat à la table Authoress
             Authoress.query.filter(Authoress.id == name).update({'url_image_wikipedia': result})
             # on ajoute au dicitonnaire authoress
             authoress['authoress']['img_wiki'] = result
         except Exception as e:
             print(e)
 
-
-    # if authoress['authoress']['wikipedia'] is not None:
-    #     wikipedia.set_lang("fr")
-    #     name = authoress['authoress']['wikipedia']
-    #     name_split= name.split('/')
-    #     name_parse = urllib.parse.unquote(name_split[-1])
-    #     wiki_page = wikipedia.page(name_parse, auto_suggest=False)
-    #     for img in wiki_page.images :
-    #         # matching_images = [img for img in v.images if "sand" in img.lower() and "jpg" in img
-    #         print(img)
-    #         if 'sand' in img and 'jpg' in img:
-    #             matching_images_by_len = sorted(img, key=len)
-    #             new_img = matching_images_by_len[0]                
-    #             Authoress.query.filter(Authoress.id == name).update({'url_image_wikipedia': new_img})
-    #             authoress['authoress']['img_wiki'] = new_img
-    #             break
-
-
+    # POUR RECUPERER UN RESUME DE WIKIPEDIA
+    if authoress['authoress']['wikipedia'] is not None:
+        wikipedia.set_lang("fr")
+        name = authoress['authoress']['wikipedia']
+        name_split= name.split('/')
+        name_parse = urllib.parse.unquote(name_split[-1])
+        wiki_page = wikipedia.page(name_parse, auto_suggest=False)
+        authoress['authoress']['summary'] = wiki_page.summary
 
     return render_template ('pages/presentation_autrice.html',
                             authoress=authoress,
@@ -147,14 +136,14 @@ def presentation_piece(titre):
     .join(Play.configuration)\
     .join(Play.theater)\
     .join(Play.type)\
-    .filter(Play.title == titre).all()
+    .filter(Play.title == titre).one()
     # Je renvoie vers la template
     return render_template ('pages/presentation_piece.html',
                             # pour pouvoir utiliser les resultats contenus dans data qui est une liste, 
                             # je cree une variable piece qui va contenir la liste de l'ensemble des informations requêtées
                             # même si je sais qu'il n'y a qu'une seule piece, je suis obligee de le preciser avec le [0] 
                             # car la machine ne le sait pas
-                            piece = data[0],
+                            piece = data,
                             titre = titre)
 
 

@@ -4,45 +4,40 @@
 
 
 <h3 class="titre_presentation">{{authoress['authoress']['id']}}</h3>
-
-
-<p class="update"><a class="update" href="{{url_for('update_autrice', name=authoress['authoress']['id'])}}">Modifier les informations</a></p>
-
+        {%if authoress['authoress']['img_wiki'] is not none:%}
         <div class="img_autrice">
                 <img src="{{authoress['authoress']['img_wiki']}}" class="img">
         </div>
+        {%endif%}
+        <p class="ss_titre">Présentation de l'autrice</p>
         <div class="informations">
-        <p class="ss_titre">Wikipédia</p>
-        <hr>
-        {%if authoress['authoress']['wikipedia'] is none:%}
-        <p>Pas de fiche wikipédia.</p>
-        {%else%}
-        <p><a href="{{authoress['authoress']['wikipedia']}}">{{authoress['authoress']['wikipedia']}}</a></p>
-        {%endif%}
+                <hr>
+                <div>
+                {%if authoress['authoress']['wikipedia'] is not none:%}
+                        <p>{{authoress['authoress']['summary']}}</p>
+                        <a href="{{authoress['authoress']['wikipedia']}}">Wikipédia</a>
+                        {%endif%}
+        
+                        {%if authoress['authoress']['wikidata'] is not none:%}
+                        <a href="{{authoress['authoress']['wikidata']}}">Wikidata</a>
+                        {%endif%}
 
-        <p class="ss_titre">Wikidata</p>
-        <hr>
-        {%if authoress['authoress']['wikidata'] is none:%}
-        <p>Pas d'identifiant wikidata.</p>
-        {%else%}
-        <p><a href="{{authoress['authoress']['wikidata']}}">{{authoress['authoress']['wikidata']}}</a></p>
-        {%endif%}
-
-        <p class="ss_titre">Notice à la Bibliothèque Nationale de France</p>
-        <hr>
-        {%if authoress['authoress']['bnf'] is none:%}
-        <p>Pas de notice BnF.</p>
-        {%else%}
-        <p><a href="{{authoress['authoress']['bnf']}}">{{authoress['authoress']['bnf']}}</a></p>
-        {%endif%}
-
-        <p class="ss_titre">Liste de ces oeuvres</p>
-        <hr>
-        {%for piece in authoress['piece']%}
-        <p><a href="{{url_for('presentation_piece', titre=piece['titre'])}}">{{piece['titre']}}</a> ({{piece['date']}})</p>
-        {%endfor%}
+                        {%if authoress['authoress']['bnf'] is not none:%}
+                        <a href="{{authoress['authoress']['bnf']}}">Notice BNF</a>
+                        {%else%}
+                        {%endif%}
+                </div>
+               
+        </div>
+        <div class="liste_oeuvres_autrice">
+                <p class="ss_titre">Liste des oeuvres</p>
+                <hr>
+                {%for piece in authoress['piece']%}
+                <a href="{{url_for('presentation_piece', titre=piece['titre'])}}">{{piece['titre']}}, ({{piece['date']}})</a>
+                {%endfor%}
+                <a id="update" href="{{url_for('update_autrice', name=authoress['authoress']['id'])}}">Modifier les informations</a>
         </div>
     
-
+       
 
 {%endblock%}

@@ -1,6 +1,5 @@
 from ..app import app, db
-from flask import render_template, request, flash
-from flask_login import login_required
+from flask import render_template
 from ..models.autrices import Play, Type, play_type, Theater, play_theater, Configuration, play_configuration
 from sqlalchemy import func, text
 
@@ -8,12 +7,38 @@ from sqlalchemy import func, text
 def graphiques():
     return render_template("pages/graphiques.html")
 
+@app.route("/graphiques/annees", methods=['GET', 'POST'])
+def graphique_play_years():
+     test_data= db.session.query(
+          Play,\
+          func.count(Play.date).label('total'),#COUNT(date) as total\ 
+          # la func.substr() permet de conserver seulement l'année de la date, 
+          # car elle est au format yyyy-MM-dd dans la base de données
+          func.substr(Play.date, 0, 5).label('years')
+          )\
+     .filter(func.substr(Play.date, 0, 5))\
+     .group_by(func.substr(Play.date, 0, 5))\
+     # .order_by(text('total DESC'))
+
+     data = []
+
+     for year in test_data.all():
+          print(year)
+          data.append({
+               # transformer le str en int permet de s'assurer que les résultats seront bien triés
+               "label": int(year[2]),
+               "nombre": year.total
+          })
+
+     print(data)
+
+     return data
+
 @app.route("/graphiques/genres", methods=['GET', 'POST'])
 def graphique_type_play():
      test_data= db.session.query(Type, func.count(play_type.c.id_type).label('total'))\
      .join(play_type, )\
      .group_by(Type.id_type)\
-     .order_by(text('total DESC'))
 
      data = []
 
@@ -42,7 +67,6 @@ def graphique_theater_play():
      raw_data= db.session.query(Theater, func.count(play_theater.c.id_theater).label('total'))\
     .join(play_theater, )\
      .group_by(Theater.id_theater)\
-     .order_by(text('total DESC'))
 
      data = []
 
@@ -67,7 +91,6 @@ def graphique_configuration_play():
      raw_data= db.session.query(Configuration, func.count(play_configuration.c.id_configuration).label('total'))\
     .join(play_configuration, )\
      .group_by(Configuration.id_configuration)\
-     .order_by(text('total DESC'))
 
      data = []
 
@@ -84,7 +107,6 @@ def graphique_configuration_play():
 def graphique_is_published():
      raw_data= db.session.query(Play, func.count(Play.is_published).label('total'))\
      .group_by(Play.is_published)\
-     .order_by(text('total DESC'))
 
      data = []
 

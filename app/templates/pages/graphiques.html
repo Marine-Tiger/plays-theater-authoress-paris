@@ -2,6 +2,70 @@
 
 {%block body%}
 
+<div class="graphes_container">
+
+    <div class="graphique">
+        <canvas id="date"></canvas>
+        
+        
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.2/dist/chartjs-plugin-deferred.min.js"></script>
+            <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-colorschemes/releases/download/v0.4.0/chartjs-plugin-colorschemes.js"></script>
+        
+
+        <script>
+        const ctx_date = document.getElementById('date');
+        
+        const graphe_date = new Chart(ctx_date, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: []
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Nombre de pièces produites à Paris par année',
+                }
+                
+                
+            }
+        });
+        
+        fetch('{{url_for("graphique_play_years")}}')
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                var labels = [];
+                var nombres = [];
+        
+                for (var i = 0; i < data.length; i++) {
+                    labels.push(data[i].label);
+                    nombres.push(data[i].nombre);
+                }
+                
+                graphe_date.data.labels = labels; ;
+                graphe_date.data.datasets.forEach((dataset) => {
+                    dataset.data = nombres;
+                });
+                graphe_date.options.plugins.colorschemes.scheme = 'brewer.SetThree12';
+                graphe_date.update();
+                
+            });
+            </script>
+        </div>
+        <p class="legende">Ce graphique permet de constater plusieurs points: une tendance à l'augmentation de la production des pièces écrites par des autrices, 
+            avec un pic à 10 pièces en 1872 et dans les années 1890 ;
+            on remarque très peu voire aucune pièce n'a été joué à certaines années, probablement suite à des évènements se déroulant à Paris 
+        (par exemple, 1830: les Trois Glorieuses, 1871: La Commune de Paris) </p>
+
 <div class="graphique">
 <canvas id="type"></canvas>
 
@@ -22,7 +86,14 @@ const graphe_type = new Chart(ctx_type, {
         }]
     },
     options: {
+        title: {
+            display: true,
+            text: 'Répartitions des pièces par genre',
+        }
+        
+        
     }
+
 });
 
 fetch('{{url_for("graphique_type_play")}}')
@@ -54,6 +125,9 @@ fetch('{{url_for("graphique_type_play")}}')
     });
     </script>
 </div>
+<p class="legende">On peut constater ici que presque un tiers de notre dataset sont des comédies. 
+    Le deuxième genre le plus représenté sont les drames. </p>
+
 
 <div class="graphique">
 <canvas id="theater"></canvas>
@@ -61,6 +135,7 @@ fetch('{{url_for("graphique_type_play")}}')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.2/dist/chartjs-plugin-deferred.min.js"></script>
     <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-colorschemes/releases/download/v0.4.0/chartjs-plugin-colorschemes.js"></script>
+
 
 <script>
 const ctx_theater = document.getElementById('theater');
@@ -74,6 +149,11 @@ const graphe_theater = new Chart(ctx_theater, {
         }]
     },
     options: {
+        title: {
+            display: true,
+            text: 'Répartition des pièces par théâtre',
+            
+        }
     }
 });
 
@@ -107,12 +187,16 @@ fetch('{{url_for("graphique_theater_play")}}')
     </script>
 </div>
 
+<p class="legende">Trois théâtres ressortent en particuliers: le Gymnase dramatique, le théâtre de l'Odéon et le théâtre de Vaudeville, 
+    qui ont présentés respectivement 30, 33 et 30 pièces.</p>
+
 <div class="graphique">
 <canvas id="configuration"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1.0.2/dist/chartjs-plugin-deferred.min.js"></script>
     <script type="text/javascript" src="https://github.com/nagix/chartjs-plugin-colorschemes/releases/download/v0.4.0/chartjs-plugin-colorschemes.js"></script>
+
 
 <script>
 const ctx_configuration = document.getElementById('configuration');
@@ -126,6 +210,11 @@ const graphe_configuration = new Chart(ctx_configuration, {
         }]
     },
     options: {
+        title: {
+            display: true,
+            text: 'Répartition des pièces en fonction de leur forme',
+            
+        }
     }
 });
 
@@ -135,29 +224,29 @@ fetch('{{url_for("graphique_configuration_play")}}')
     })
     .then((data) => {
         console.log(data);
-        // calcul des labels et des nombres
+        
         var labels = [];
         var nombres = [];
 
-        // itération sur le retour de l'URL graphiques_ressources_pays_donnees
+
         for (var i = 0; i < data.length; i++) {
-            // comme en Python, on rempli ici les tableaux
+
             labels.push(data[i].label);
             nombres.push(data[i].nombre);
         }
-        
-        // ajout des données dans le graphique
+
         graphe_configuration.data.labels = labels; ;
         graphe_configuration.data.datasets.forEach((dataset) => {
             dataset.data = nombres;
         });
         graphe_configuration.options.plugins.colorschemes.scheme = 'brewer.SetThree12';
-        // mise à jout du graphique une fois les données calculées et insérées dans le graphique
+
         graphe_configuration.update();
         
     });
     </script>
 </div>
+<p class="legende">On constate ici qu'environ 37% des pièces de notre dataset sont en un acte.</p>
 
 <div class="graphique">
 <canvas id="publication"></canvas>
@@ -178,6 +267,11 @@ const graphe_publication= new Chart(ctx_publication, {
         }]
     },
     options: {
+        title: {
+            display: true,
+            text: 'Part des pièces non publiées et publiées ',
+            
+        }
     }
 });
 
@@ -209,6 +303,8 @@ fetch('{{url_for("graphique_is_published")}}')
         
     });
     </script>
+</div>
+<p class="legende">On constate que plus de la moitié des pièces ont été publiées, mais une partie non conséquente ne l'a pas été (environ 45%).</p>
 </div>
     
 {%endblock%}

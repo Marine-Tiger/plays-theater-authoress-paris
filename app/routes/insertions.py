@@ -1,7 +1,7 @@
 from ..app import app, db
 from flask import render_template, request, flash
 from flask_login import login_required
-from ..models.autrices import Play, Authoress, Theater, Type, Configuration,play_configuration, play_theater, play_type
+from ..models.autrices import Play, Authoress, Theater, Configuration
 from ..models.formulaires import AddPlay, AddAuthoress
 from sqlalchemy import create_engine, exc
 from sqlalchemy.sql import text

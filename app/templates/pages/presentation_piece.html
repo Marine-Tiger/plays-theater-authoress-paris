@@ -3,34 +3,43 @@
 {%block body%}
 <!-- on retrouve ici la variable piece declaree dans la route liste_pieces/titre de generales.py -->
 <h3 class="titre_presentation">{{piece.title}}</h3>
-<p class="update"><a href="{{url_for('update_play', id_play=piece.id_play)}}">Modifier les informations</a></p>
-<ul class="infos_piece">
 
-    <li><b>Lien vers les Archives Nationales:</b> <a href="{{piece.url_AN}}">{{piece.url_AN}}</a></li>
-    <li><b>Autrice:</b> <a href="{{url_for('presentation', name= piece.authoress)}}">{{piece.authoress}}</a></li>
-    <li><b>Autre(s) auteur.rice(s):</b> {{piece.other_author}}</li>
-    <li><b>Date de production:</b> {{piece.date}}</li>
-    {%for genre in piece.type%}
-    <li><b>Genre(s):</b> {{genre.id_type}}</li>
-    {%endfor%}
-    {%for theater in piece.theater%}
-    <li><b>Lieu:</b> {{theater.id_theater}}</li>
-    {%endfor%}
+<p class="ss_titre"><a href="{{piece.url_AN}}">Inventaire des Archives Nationales</a></p>
 
-    <li><b>Forme de la piece:</b> {{piece.configuration[0].id_configuration}}
-    </li>
+<div class="infos_oeuvre">
+        <p><b>Autrice:</b> <a href="{{url_for('presentation', name= piece.authoress)}}">{{piece.authoress}}</a></p>
 
-    {%if piece.is_published == 0%}
-    <li><b>Publiée: </b>Non</li>
-    {%else%}
-    <li><b>Publiée: </b> Oui</li>
-    {%endif%}
-    {%if piece.digitized is none:%}
-    <li><b>Lien vers numérisation:</b> aucun</li>
-    {%else%}
-    <li><b>Lien vers numérisation:</b> <a href="{{piece.digitized}}">{{piece.digitized}}</a></li>
-    {%endif%}
-</ul>
+        {%if piece.other_author is not none :%}
+        <p><b>Autre(s) auteur.rice(s):</b> {{piece.other_author}}</p>
+        {%endif%}
+
+        <p><b>Date de production:</b> {{piece.date}}</p>
+
+        {%for genre in piece.type%}
+        <p><b>Genre(s):</b> {{genre.id_type}}</p>
+        {%endfor%}
+
+        {%for theater in piece.theater%}
+        <p><b>Lieu:</b> {{theater.id_theater}}</p>
+        {%endfor%}
+
+        <p><b>Forme de la piece:</b> {{piece.configuration[0].id_configuration}}</p>
+
+        {%if piece.is_published == 0%}
+        <p><b>Publiée:</b> Non</p>
+        {%else%}
+        <p><b>Publiée: </b> Oui</p>
+        {%endif%}
+
+        {%if piece.digitized is none:%}
+
+        {%else%}
+        <p><b><a href="{{piece.digitized}}">Lien vers numérisation</a></b></p>
+        {%endif%}
+
+<a id="update" href="{{url_for('update_play', id_play=piece.id_play)}}">Modifier les informations</a>
+
+</div>
 
 
 
