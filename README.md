@@ -1,4 +1,4 @@
-<h2> Les autrices dans le théâtre </h2>
+# Les autrices dans le théâtre #
 
 Cette application a pour objectif de faire connaître les dramaturges produites dans les salles parisiennes du début du 19ème siècle au début du 20ème siècle.
 
@@ -6,7 +6,7 @@ Réalisée dans le cadre  de la deuxième année de Master TNAH à l'Ecole Natio
 
 Elle permet de découvrir ces autrices et leurs pièces, mais aussi de participer à l'enrichissement de la base de données en ajoutant ou modifiant les informations concernant les dramaturges et/ou leurs oeuvres.
 
-<h3> Installations <h3>
+## Installations ##
 
 Ce repository contient la base de données en .sqlite, il n'est donc pas nécessaire de la télécharger. 
 Pour installer l'application:
