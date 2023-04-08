@@ -3,19 +3,39 @@
 {%block body%}
 
 <h3>Pièces de théâtre</h3>
+
 <ul class="index_pieces">
-    {%if donnees.prev_num %}
-                <a class="list-group-item" href="{{ url_for('pieces', page=donnees.prev_num) }}">
-                    Page précédente &lt;
-                </a>
-                {% endif %}
+    
     {%for piece in donnees.items%}
     <li><a href="{{url_for('presentation_piece', titre=piece.title)}}">{{piece.title}}</a></li>
     {%endfor%}
-    {%if donnees.next_num %}
-                <a class="list-group-item" href="{{ url_for('pieces', page=donnees.next_num) }}">
-                    Page suivante &gt;
-                </a>
-                {% endif %}
 </ul>
+
+<div class="precedent_suivant_insertion">
+
+    {%if donnees.prev_num %}
+            <a  id="precedent" href="{{ url_for('pieces', page=donnees.prev_num) }}">
+                &lt; Page précédente
+            </a>
+    {%else%}
+    <a></a>
+    {% endif %}
+
+
+    <a id="insertion" href="{{url_for('insertion_piece')}}"> 
+            Il manque une pièce? Ajoutez-la !
+    </a>
+
+    {%if donnees.next_num %}
+        <a id="suivant" href="{{ url_for('pieces', page=donnees.next_num) }}">
+            Page suivante &gt;
+        </a>
+    {% endif %}
+
+</div>
+
+
+
+
+
 {%endblock%}

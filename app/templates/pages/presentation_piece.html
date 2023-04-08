@@ -2,36 +2,36 @@
 
 {%block body%}
 <!-- on retrouve ici la variable piece declaree dans la route liste_pieces/titre de generales.py -->
-<h3>{{piece.title}}</h3>
+<h3 class="titre_presentation">{{piece.title}}</h3>
+<p class="update"><a href="{{url_for('update_play', id_play=piece.id_play)}}">Modifier les informations</a></p>
 <ul class="infos_piece">
 
-    <li>Lien vers les Archives Nationales: <a href="{{piece.url_AN}}">{{piece.url_AN}}</a></li>
-    <li>Autrice: <a href="{{url_for('presentation', name= piece.authoress)}}">{{piece.authoress}}</a></li>
-    <li>Autre(s) auteur.rice(s): {{piece.other_author}}</li>
-    <li>Date de production: {{piece.date}}</li>
+    <li><b>Lien vers les Archives Nationales:</b> <a href="{{piece.url_AN}}">{{piece.url_AN}}</a></li>
+    <li><b>Autrice:</b> <a href="{{url_for('presentation', name= piece.authoress)}}">{{piece.authoress}}</a></li>
+    <li><b>Autre(s) auteur.rice(s):</b> {{piece.other_author}}</li>
+    <li><b>Date de production:</b> {{piece.date}}</li>
     {%for genre in piece.type%}
-    <li>Genre(s): {{genre.id_type}}</li>
+    <li><b>Genre(s):</b> {{genre.id_type}}</li>
     {%endfor%}
     {%for theater in piece.theater%}
-    <li>Lieu: {{theater.id_theater}}</li>
+    <li><b>Lieu:</b> {{theater.id_theater}}</li>
     {%endfor%}
 
-    <li>Forme de la piece:
-        {{piece.configuration[0].id_configuration}}
+    <li><b>Forme de la piece:</b> {{piece.configuration[0].id_configuration}}
     </li>
 
     {%if piece.is_published == 0%}
-    <li>Publiée: Non</li>
+    <li><b>Publiée: </b>Non</li>
     {%else%}
-    <li>Publiée: Oui</li>
+    <li><b>Publiée: </b> Oui</li>
     {%endif%}
     {%if piece.digitized is none:%}
-    <li>Lien vers numérisation: aucun</li>
+    <li><b>Lien vers numérisation:</b> aucun</li>
     {%else%}
-    <li>Lien vers numérisation: <a href="{{piece.digitized}}">{{piece.digitized}}</a></li>
+    <li><b>Lien vers numérisation:</b> <a href="{{piece.digitized}}">{{piece.digitized}}</a></li>
     {%endif%}
 </ul>
-<a class="update" href="{{url_for('update_play', id_play=piece.id_play)}}">Modifier les informations</a>
+
 
 
 {%endblock%}

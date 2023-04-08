@@ -1,7 +1,11 @@
 from ..app import app, db
 from flask import render_template
-from ..models.autrices import Play, Authoress, Theater
-# import wikipedia
+from ..models.autrices import Play, Authoress, Theater, Quote
+# librairie pour importer des informations de wikipedia
+import wikipedia
+import urllib
+# librairie pour effectuer des requetes SPARQL dans Wikidata
+from SPARQLWrapper import SPARQLWrapper, JSON
 
 
 @app.route("/home")
@@ -16,47 +20,110 @@ def autrices(page=1):
                             sous_titre = 'Index des autrices',
                             donnees=Authoress.query.order_by(Authoress.id).paginate(page=page, per_page=app.config["AUTRICES_PER_PAGE"]))
 
+
 # PAGE DE PRESENTATION DES AUTRICES
 @app.route("/autrices/<string:name>")
 def presentation(name):
     data= db.session.query(Authoress, Play)\
     .join(Play.Authoress).\
     filter(Authoress.id == name).all()
-    id_authoress = {}
+    authoress = {}
+
+    sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+
 
     # Python ne sait pas comment transformer une instance de classe en json car impossible 
     # (une instance de classe peut contenir des fonctions/attributs prives/publics = pas representable en json)
     # ==> on transf la donnee en dict que python sait serialiser (transfo) en json (donc en donnees les unes a la suite des autres)
-    print(data)
+
     # creation d'une variable autrice qui stocke l'elmt[0] la tuple
     autrice=data[0][0]
     # on ajoute au dictionnaire une clef dont la valeur est le 1er elmt de la tuple
     # pour transformer l'elmt en dictionnaire, on accede a sa propriete via le .[propriete] ==> propriete qui est un string ici
-    id_authoress['authoress'] = {
+    authoress['authoress'] = {
         'id': autrice.id, 
         'wikipedia': autrice.wikipedia, 
         'wikidata': autrice.wikidata,
-        'bnf': autrice.bnf
+        'bnf': autrice.bnf,
+        'img_wiki': autrice.url_image_wikipedia
     }
 
     # Pour ajouter les proprietes de la classe Play
     # La clef 'piece' a pour valeur une liste
-    id_authoress['piece'] =  [
+    authoress['piece'] =  [
     ]
+
+
     
     for elm in data:
         # une variable piece qui vaut la position une dans la tuple
         piece=elm[1]
         # a chaque tour, on ajoute a la liste les differents elements de la table Play
-        id_authoress['piece'].append({'cote_AN':piece.url_AN, 
+        authoress['piece'].append({'cote_AN':piece.url_AN, 
                                       'titre':piece.title, 
                                       'date': piece.date, 
                                       'autre auteur': piece.other_author, 
                                       'lien numerisation':piece.digitized,
                                       'publié': piece.is_published == 1})
     
+    # REQUETE SPARQL POUR RECUPERER UNE IMAGE DANS WIKIDATA
+    if authoress['authoress']['wikidata'] is not None:
+
+        # stockage dans une variable de l'url wikidata
+        wikidata_url= authoress['authoress']['wikidata']
+
+        # split pour recuperer seulement l'entite ID wikidata
+        wikidata_entity = wikidata_url.split('/')
+        wikidata_entity_id = wikidata_entity[-1]
+        # La requete SPARQL, on ajoute la variable wikidata_entity_id grace au + (concatenation)
+        sparql_query = """
+            SELECT ?pic
+            WHERE
+            {
+            ?item wdt:P18 ?pic .
+            FILTER(?item = wd:""" + wikidata_entity_id + """)
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+            }
+            LIMIT 1
+            """
+        # Envoie la requete a execute a la librairie
+        sparql.setQuery(sparql_query)
+        # On recupere le format en JSON = dictionnaire
+        sparql.setReturnFormat(JSON)
+        # Converti avec tous les parametres donnes
+        sparql_res = sparql.query().convert()
+        
+        # pour etre sur de recuperer celles qui ont des images
+        try:
+            result = sparql_res['results']['bindings'][0]['pic']['value']
+            # on ajoute le resultat a la table Authoress
+            Authoress.query.filter(Authoress.id == name).update({'url_image_wikipedia': result})
+            # on ajoute au dicitonnaire authoress
+            authoress['authoress']['img_wiki'] = result
+        except Exception as e:
+            print(e)
+
+
+    # if authoress['authoress']['wikipedia'] is not None:
+    #     wikipedia.set_lang("fr")
+    #     name = authoress['authoress']['wikipedia']
+    #     name_split= name.split('/')
+    #     name_parse = urllib.parse.unquote(name_split[-1])
+    #     wiki_page = wikipedia.page(name_parse, auto_suggest=False)
+    #     for img in wiki_page.images :
+    #         # matching_images = [img for img in v.images if "sand" in img.lower() and "jpg" in img
+    #         print(img)
+    #         if 'sand' in img and 'jpg' in img:
+    #             matching_images_by_len = sorted(img, key=len)
+    #             new_img = matching_images_by_len[0]                
+    #             Authoress.query.filter(Authoress.id == name).update({'url_image_wikipedia': new_img})
+    #             authoress['authoress']['img_wiki'] = new_img
+    #             break
+
+
+
     return render_template ('pages/presentation_autrice.html',
-                            id_authoress=id_authoress,
+                            authoress=authoress,
                             name=name)
 
 
@@ -69,7 +136,6 @@ def pieces(page=1):
                             donnees=Play.query.order_by(Play.title).paginate(page=page, per_page=app.config["PIECES_PER_PAGE"]))
 
 
-# .paginate(page=page, per_page=app.config["PLAY_PER_PAGE"])
 
 # PAGE POUR CHAQUE PIECE
 @app.route("/pieces/<string:titre>")

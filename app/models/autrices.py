@@ -82,3 +82,12 @@ class Authoress(db.Model):
     wikidata = db.Column(db.Text, nullable=True)
     wikipedia = db.Column(db.Text, nullable=True)
     bnf = db.Column(db.Text, nullable=True)
+    url_image_wikipedia = db.Column(db.Text, nullable=True)
+
+class Quote(db.Model):
+    __tablename__ = "quote"
+    authoress = db.Column(db.Text, primary_key=True)
+    quote = db.Column(db.Text, nullable=True)
+    source = db.Column(db.Text, nullable=True)
+    date = db.Column(db.Text, nullable=True)
+    id = db.Column(db.Text, db.ForeignKey('authoress.id'))

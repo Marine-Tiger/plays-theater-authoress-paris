@@ -81,11 +81,6 @@ def insertion_piece():
                 db.session.add(new_date)
                 db.session.commit
             
-            # if type:
-            #     new_type = Type(id_type=type)
-            #     db.session.add(new_type)
-            #     db.session.commit
-            
             if configuration:
                 configuration_in_db = Configuration.query.filter(Configuration.id_configuration == configuration).all()
                 
@@ -107,18 +102,6 @@ def insertion_piece():
                 new_digitized = Play(digitized=digitized)
                 db.session.add(new_digitized)
                 db.session.commit()
-            
-            # play_configuration_table = play_configuration(id_play = id_play, id_configuration = configuration)
-            # db.session.add(play_configuration_table)
-            # db.session.commit()
-
-            # play_type_table = play_type(id_play=id_play, id_type = type)
-            # db.session.add(play_type_table)
-            # db.session.commit()
-
-            # play_theater_table = play_theater(id_play=id_play, id_theater = name_theater)
-            # db.session.add(play_theater_table)
-            # db.session.commit()
             flash("Les informations ont bien été inséré.")    
     except Exception as e :
         print(e)

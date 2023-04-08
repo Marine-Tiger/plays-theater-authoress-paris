@@ -3,13 +3,20 @@
 {%block body%}
 
 
+<h2 class="titre_accueil">Dramaturges françaises du XIXème siècle à Paris</h2>
 
-<div class="accueil">
-    <ul>
-        <li><a href="{{url_for('autrices')}}">Listes des autrices</a></li>
-        <li><a href="{{url_for('pieces')}}">Listes des pièces des théâtres</a></li>
-        <li><a href="{{url_for('theatres')}}">Listes des théâtres</a></li>
-    </ul>
+<div class="texte_accueil">
+    <p>Ce projet a pour objectif de faire connaître et valoriser des autrices de pièces de théâtre produites à Paris au cours du XIXème siècle.
+        Réalisée dans le cadre  de la deuxième année de Master TNAH à l'Ecole Nationale des Chartes, cette API exploite une base de donnée créée à partir 
+        des données fournies par le site <a href="https://www.data.gouv.fr/fr/datasets/pieces-de-theatre-ecrites-par-des-femmes-et-representees-a-paris-entre-1809-et-1906/">data.gouv</a>.
+    
+    </p>
+    <br>
+    <p>Le site internet permet de (re)découvrir les dramaturges françaises, dont les pièces ont été produites à Paris. 
+        Les différents onglets de la barre de navigation donne l'opportunité de l'ensemble des autrices, des pièces et des théâtres présents dans notre base de données.
+        Notre but étant la valorisation et l'enrichissement des données, nous proposons la possibilité de modifier et d'ajouter des informations concernant les autrices et les pièces.
+        L'onglet "Graphiques" renvoie vers une page de visualisation des données.
+    </p>
 </div>
 
 {%endblock%}

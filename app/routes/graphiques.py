@@ -5,24 +5,36 @@ from ..models.autrices import Play, Type, play_type, Theater, play_theater, Conf
 from sqlalchemy import func, text
 
 @app.route("/graphiques", methods=['GET', 'POST'])
-def graphiques_ressources_pays():
+def graphiques():
     return render_template("pages/graphiques.html")
 
 @app.route("/graphiques/genres", methods=['GET', 'POST'])
 def graphique_type_play():
      test_data= db.session.query(Type, func.count(play_type.c.id_type).label('total'))\
-    .join(play_type, )\
+     .join(play_type, )\
      .group_by(Type.id_type)\
      .order_by(text('total DESC'))
 
      data = []
 
-     for type in test_data.all():
-          data.append({
-               "label": type[0].id_type,
-               "nombre": type.total
-          })
+# Plutot que de limiter le nombre de resultats, on va creer un dictionnaire autres
+     autres= {
+          "label": 'Autres',
+          "nombre": 0
+     }
 
+     for type in test_data.all():
+          # Si le nombre total par genre est inferieur a 5
+          if type.total < 5:
+               # On ajoute a l'entree 'nombre' le nombre total par genre
+               autres['nombre'] += type.total
+          else:
+               data.append({
+                    "label": type[0].id_type,
+                    "nombre": type.total
+               })
+     # On ajoute le dictionnaire autres une fois la boucle terminee
+     data.append(autres)
      return data
 
 @app.route("/graphiques/theatre", methods=['GET', 'POST'])
@@ -32,15 +44,22 @@ def graphique_theater_play():
      .group_by(Theater.id_theater)\
      .order_by(text('total DESC'))
 
-
      data = []
 
+     autres= {
+          "label": 'Autres',
+          "nombre": 0
+     }
+     
      for theater in raw_data.all():
-          data.append({
-               "label": theater[0].id_theater,
-               "nombre": theater.total
-          })
-
+          if theater.total < 4:
+               autres['nombre'] += theater.total
+          else:
+               data.append({
+                    "label": theater[0].id_theater,
+                    "nombre": theater.total
+               })
+     data.append(autres)
      return data
 
 @app.route("/graphiques/forme", methods=['GET', 'POST'])
@@ -70,9 +89,15 @@ def graphique_is_published():
      data = []
 
      for publication in raw_data.all():
-          data.append({
-               "label": publication[0].is_published,
-               "nombre": publication.total
-          })
+          if publication[0].is_published == 1:
+               data.append({
+                    "label": 'Publiées',
+                    "nombre": publication.total
+               })
+          else:
+                    data.append({
+                    "label": 'Non publiées',
+                    "nombre": publication.total
+               })
 
      return data

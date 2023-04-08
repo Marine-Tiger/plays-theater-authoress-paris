@@ -3,21 +3,34 @@
 {%block body%}
 <!-- on retrouve ici la variable piece declaree dans la route liste_pieces/titre de generales.py -->
 <h3>Autrices</h3>
+
 <ul class="sommaire_autrices">
-    {%if donnees.prev_num %}
-                <a class="list-group-item" href="{{ url_for('autrices', page=donnees.prev_num) }}">
-                    Page précédente &lt;
-                </a>
-                {% endif %}
     {%for autrice in donnees.items%}
     <li><a href="{{url_for('presentation', name=autrice.id)}}">{{autrice.id}}</a></li>
     {%endfor%}
-    {%if donnees.next_num %}
-                <a class="list-group-item" href="{{ url_for('autrices', page=donnees.next_num) }}">
-                    Page suivante &gt;
-                </a>
-                {% endif %}
 </ul>
+
+<div class="precedent_suivant_insertion">
+
+    {%if donnees.prev_num:%}
+            <a id="precedent" href="{{ url_for('autrices', page=donnees.prev_num) }}">
+                &lt; Page précédente
+            </a>
+    {%else%}
+    <a></a>
+    {%endif%}
+
+    <a id="insertion" href="{{url_for('insertion_autrice')}}"> 
+            Il manque une autrice? Ajoutez-la !
+    </a>
+
+    {%if donnees.next_num %}
+        <a id="suivant" href="{{ url_for('autrices', page=donnees.next_num) }}">
+            Page suivante &gt;
+        </a>
+    {% endif %}
+
+</div>
 
 
 {%endblock%}

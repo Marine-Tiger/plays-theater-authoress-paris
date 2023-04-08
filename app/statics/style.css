@@ -1,24 +1,54 @@
 @charset "utf-8";
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Arrière-plan du corps du site */
+body {
+    background-color: #FDE2E4;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Style de la barre de navigation */
 header {
-    height: 100px;
-    background-color: #CCD5AE;
+    background-color: #C89F9C;
+    display: flex;
+    justify-content: space-between;
 }
 
 .img {
-    margin: auto;
     height: 100px;
     width: 125px;
+    background-color:#C89F9C;
+
 }
 
-nav {
-    float: right;
-    width: 35%;
-    margin: 2%;
-    font-family: serif;
+.navbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    padding-right: 20px;
+}
+
+nav > a {
+	padding:5px;
+	text-decoration:none;
+    font-family: Georgia, sans-serif;
     font-weight: bold;
+    font-size: 20px;
     color: #5E548E;
+}
+
+.user{
+    color: #4f4b65;
+    margin-left: 15px;
+    font-style: italic;
 }
 
 
@@ -26,11 +56,21 @@ nav {
     text-align: center;
 }
 
-/* Arrière-plan du corps du site */
-body {
-    background-color: #FAEDCD;
-    height: 100%;
+
+.parallax {
+    /* The image used */
+    background-image: url("./banner.png");
+    
+    /* Set a specific height */
+    min-height: 500px;
+    
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
 
 /* Style des titres */
 h1 {
@@ -42,31 +82,51 @@ h1 {
 h2 {
     color: #A3B18A;
     font-family: Georgia, sans-serif;
-    font-size: 225%;
+    font-size: 35px;
+    margin-top: 50px;
+    text-align: center;
 }
 
 h3 {
-    border-radius: 0px;
+  
     color: #B5838D;
     font-family: Georgia, sans-serif;
-    font-size: 17px;
-    margin-left: 3%;
-    margin-right: 0%;
+    font-size: 25px;
+    text-align: center;
+    justify-content: center; 
+
 }
 
-/* Style du texte de la page d'accueil */
-.home {
+.titre_accueil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.texte_accueil{
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: justify;
+    line-height: 1.8;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 23px;
     font-family: Georgia, sans-serif;
     color: #5E548E;
+    margin-bottom: 30px;
+    
 }
+
+
+
+
 
 /* Style de la page listant les pièces de théâtre, pour le texte et la bordure */
 .liste_pieces {
     display: flex;
     color: #5E548E;
     font-family: Georgia, sans-serif;
-    text-align: justify;
-    /* justify-content: center; */
+    text-align: center;
     padding: 2%;
     border: 2px solid #B5838D;
     border-radius: 5px;
@@ -74,52 +134,214 @@ h3 {
 
 }
 
-.liste_autrices{
+
+
+/* Page listant les autrices */
+.sommaire_autrices{
+text-align: center;
+padding: 0%;
+justify-content: center;
+font-family: Georgia, sans-serif;
+font-weight: bold;
+font-size: large;
+}
+
+.sommaire_autrices > li{
+    padding: 10px;
+}
+
+.precedent_suivant_insertion {
     display: flex;
-    color: #5E548E;
+    flex-direction: row;
+    justify-content: space-between;
     font-family: Georgia, sans-serif;
-    text-align: justify;
-    /* justify-content: center; */
-    padding: 2%;
-    border: 2px solid #B5838D;
-    border-radius: 5px;
-    width: 95%;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: underline;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+    padding-top: 10px;
 }
+
+
+.precedent_suivant_insertion>a{
+    color: #473f70;
+    width: 100%;
+}
+
+#precedent {
+    text-align: left;
+}
+
+#insertion {
+    text-align: center;
+}
+
+#suivant {
+    text-align: right;
+}
+
+.precedent_suivant_insertion>a:hover{
+    color: grey;
+}
+
+
+ul {
+  list-style-type: none;
+}
+
+/* Page de presentation des autrices */
+
+.img_autrice {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.img_autrice > img {
+    width: 250px;
+    height: 300px;
+}
+.informations{
+    display: block;
+    text-align: center;
+    padding-right: 25%;
+    padding-left: 25%;
+}
+
+.titre_presentation{
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.informations > .ss_titre{
+    margin-top: 10px;
+    margin-bottom: 0%;
+    color: #5E548E;
+    margin:0.5%;
+    font-size: 21px;
+    font-family: Georgia, sans-serif;
+    font-weight: bold;
+      
+}
+
+.informations > p{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0;
+    font-size: 17px;
+    font-family: Georgia, sans-serif;
+    color: #7f75b5;
+}
+
+
+/* Page listant les pieces */
+.index_pieces{
+    text-align: center;
+    padding: 0%;
+    justify-content: center;
+    font-family: Georgia, sans-serif;
+    font-weight: bold;
+    font-size: large;
+}
+
+.index_pieces> li{
+    padding: 8px;
+}
+
+
+/* Page de presentation les pieces */
+.infos_piece{
+    text-align: center;
+    justify-content: center;
+    padding-top: 15px;
+    
+}
+
+.infos_piece > li {
+    font-size: 17px;
+    font-family: Georgia, sans-serif;
+    color: #7f75b5;
+    margin: 18px;
+}
+
+.infos_piece > li > b{
+    color: #5E548E;
+}
+
+
+/* Page listant les theatres */
+.Liste_théâtres{
+    text-align: center;
+    padding: 0%;
+    justify-content: center;
+    font-family: Georgia, sans-serif;
+    font-weight: bold;
+    font-size: large;
+}
+
+.Liste_théâtres > li{
+    padding: 10px;
+}
+
+
+/* Page listant les pieces produites dans un theatre */
+.liste_pieces_theatre{
+    text-align: center;
+    padding: 0%;
+    justify-content: center;
+    font-family: Georgia, sans-serif;
+    font-weight: bold;
+    font-size: large;
+}
+
+.liste_pieces_theatre> li{
+    padding: 10px;
+}
+
 
 a {
     text-decoration: none;
-    color: #5E548E;
+    color: #7f75b5;
 }
 
 a:hover {
     color: grey;
 }
 
-/* Style des pages présentant la configuration des pièces et la carte */
-.index {
-    color: #5E548E;
+.update{
+    font-style: italic;
+    font-size: 17px;
     font-family: Georgia, sans-serif;
-    border: 2px solid #B5838D;
-    border-radius: 0px;
-    margin: 35px;
-    margin-left: 20px;
-    margin-right: 750px;
+    color: #7f75b5;
+    display: block;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 #form{
+    /*s'applique sur les données supplémentaires de la page théâtres*/
     display: flex;
     justify-content: center;
+    font-family: Georgia, sans-serif;
+    text-align: center;
 }
 form {
     /*les marges intérieures sont de 50px sur l'axe y et 30.5% sur l'axe x*/
     padding: 10px 30.5%;
     color: #5E548E;
     font-family: Georgia, sans-serif;
-
+    text-align: center;
 }
+
 
 label{
     font-weight: bold;
+    text-align: center;
 }
 
 input{
@@ -127,6 +349,7 @@ input{
     padding: 8px 16px;
     margin: 8px 0;
     box-sizing: border-box;
+    
 }
 
 form>* {
@@ -162,12 +385,19 @@ select{
 }
 
 
+#graphique{
+    width: 20%;
+    height: 80px;
+}
+
+
 /* Style pour le footer */
 footer {
-    background-color: #CCD5AE;
+    padding: 1%;
+    background-color: #C89F9C;
+    text-align: center;
     color: #5E548E;
     font-family: Georgia, sans-serif;
     font-weight: bold;
-    font-style: italic;
-    padding: 2%;
+    font-size: 18px;
 }
