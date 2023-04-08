@@ -2,7 +2,7 @@
 
 Cette application a pour objectif de faire connaître les dramaturges produites dans les salles parisiennes du début du 19ème siècle au début du 20ème siècle.
 
-Réalisée dans le cadre  de la deuxième année de Master TNAH à l'Ecole Nationale des Chartes, cette API exploite une base de donnée créée à partir des données fournies par le site _[data.gouv](https://www.data.gouv.fr/fr/datasets/pieces-de-theatre-ecrites-par-des-femmes-et-representees-a-paris-entre-1809-et-1906/)_.
+Réalisée dans le cadre  de la deuxième année de Master Technologies Numériques Appliquées à l'Histoire à l'Ecole Nationale des Chartes, cette API exploite une base de donnée créée à partir des données fournies par le site _[data.gouv](https://www.data.gouv.fr/fr/datasets/pieces-de-theatre-ecrites-par-des-femmes-et-representees-a-paris-entre-1809-et-1906/)_.
 
 Elle permet de découvrir ces autrices et leurs pièces, mais aussi de participer à l'enrichissement de la base de données en ajoutant ou modifiant les informations concernant les dramaturges et/ou leurs oeuvres.
 
@@ -15,7 +15,7 @@ Pour installer l'application:
 ```git clone https://github.com/Marine-Tiger/plays-theater-authoress-paris```
 
 - Récupérer les modules nécessaires pour faire fonctionner l'application:
-```pip freeze > requirements.txt```
+```pip install -r requirements.txt```
 
 - Créer un .env à la racine de l'application et y coller les lignes suivantes:
 ```DEBUG=True
