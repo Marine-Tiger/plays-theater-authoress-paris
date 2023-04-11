@@ -22,7 +22,7 @@ Pour installer l'application:
 SQLALCHEMY_DATABASE_URI=sqlite:///chemin vers la base de données
 
 WTF_CSRF_ENABLE=True
-SECRET_KEY=tnah2023
+SECRET_KEY= votre clé personnelle
 
 AUTRICES_PER_PAGE=20
 PIECES_PER_PAGE=20
