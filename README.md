@@ -19,7 +19,7 @@ Pour installer l'application:
 
 - Créer un .env à la racine de l'application et y coller les lignes suivantes:
 ```DEBUG=True
-SQLALCHEMY_DATABASE_URI=sqlite:////home/marine/Documents/pieces_autrices_19e
+SQLALCHEMY_DATABASE_URI=sqlite:///chemin vers la base de données
 
 WTF_CSRF_ENABLE=True
 SECRET_KEY=tnah2023
