@@ -1,6 +1,6 @@
 from ..app import app, db
 from flask import render_template
-from ..models.autrices import Play, Authoress, Theater, Quote
+from ..models.autrices import Play, Authoress, Theater
 # librairie pour importer des informations de wikipedia
 import wikipedia
 import urllib
